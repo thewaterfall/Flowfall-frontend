@@ -16,7 +16,7 @@ export class AuthService {
   authenticate(user: User): Observable<JwtResponse> {
     let url = `${this.BASE_URL}/login`;
 
-    return this.http.get<JwtResponse>(url);
+    return this.http.post<JwtResponse>(url, user);
   }
 
   isAuthenticated(): boolean {

@@ -16,6 +16,7 @@ import {AuthInterceptor} from './auth/interceptors/auth-interceptor';
 import {ErrorInterceptor} from './auth/interceptors/error-interceptor';
 import {LoginGuard} from './auth/guards/login.guard';
 import {AuthGuard} from './auth/guards/auth.guard';
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import {AuthGuard} from './auth/guards/auth.guard';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [
     TokenStorageService,

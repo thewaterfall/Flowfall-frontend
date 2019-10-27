@@ -1,1 +1,9 @@
-<p>login works!</p>
+<mat-form-field>
+  <input matInput placeholder="Email" [(ngModel)]="user.email">
+</mat-form-field>
+
+<mat-form-field>
+  <input matInput placeholder="Password" type="password" [(ngModel)]="user.password">
+</mat-form-field>
+
+<button mat-stroked-button (click)="login()">Login</button>
