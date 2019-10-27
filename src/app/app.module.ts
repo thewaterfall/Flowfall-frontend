@@ -14,6 +14,8 @@ import {AuthService} from './auth/services/auth.service';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {AuthInterceptor} from './auth/interceptors/auth-interceptor';
 import {ErrorInterceptor} from './auth/interceptors/error-interceptor';
+import {LoginGuard} from './auth/guards/login.guard';
+import {AuthGuard} from './auth/guards/auth.guard';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,9 @@ import {ErrorInterceptor} from './auth/interceptors/error-interceptor';
     TokenStorageService,
     AuthService,
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
-    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
+    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
+    AuthGuard,
+    LoginGuard
   ],
   bootstrap: [AppComponent]
 })
