@@ -17,6 +17,7 @@ import {ErrorInterceptor} from './auth/interceptors/error-interceptor';
 import {LoginGuard} from './auth/guards/login.guard';
 import {AuthGuard} from './auth/guards/auth.guard';
 import {FormsModule} from '@angular/forms';
+import {FlexLayoutModule} from '@angular/flex-layout';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import {FormsModule} from '@angular/forms';
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    FlexLayoutModule
   ],
   providers: [
     TokenStorageService,

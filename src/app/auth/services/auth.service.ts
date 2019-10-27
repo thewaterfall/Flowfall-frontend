@@ -19,6 +19,10 @@ export class AuthService {
     return this.http.post<JwtResponse>(url, user);
   }
 
+  logout() {
+    this.tokenStorage.clear();
+  }
+
   isAuthenticated(): boolean {
     let token = this.tokenStorage.getToken();
 
