@@ -9,6 +9,9 @@ import { BoardspaceComponent } from './components/boardspace/boardspace.componen
 import { BoardComponent } from './components/board/board.component';
 import { HeaderComponent } from './components/header/header.component';
 import {MaterialModule} from './modules/material/material.module';
+import {TokenStorageService} from './auth/services/token-storage.service';
+import {AuthService} from './auth/services/auth.service';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -22,9 +25,13 @@ import {MaterialModule} from './modules/material/material.module';
     MaterialModule,
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [
+    TokenStorageService,
+    AuthService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
