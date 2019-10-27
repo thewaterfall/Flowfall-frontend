@@ -13,6 +13,7 @@ import {TokenStorageService} from './auth/services/token-storage.service';
 import {AuthService} from './auth/services/auth.service';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {AuthInterceptor} from './auth/interceptors/auth-interceptor';
+import {ErrorInterceptor} from './auth/interceptors/error-interceptor';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import {AuthInterceptor} from './auth/interceptors/auth-interceptor';
   providers: [
     TokenStorageService,
     AuthService,
-    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
   ],
   bootstrap: [AppComponent]
 })
