@@ -11,7 +11,8 @@ import { HeaderComponent } from './components/header/header.component';
 import {MaterialModule} from './modules/material/material.module';
 import {TokenStorageService} from './auth/services/token-storage.service';
 import {AuthService} from './auth/services/auth.service';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {AuthInterceptor} from './auth/interceptors/auth-interceptor';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import {HttpClientModule} from '@angular/common/http';
   ],
   providers: [
     TokenStorageService,
-    AuthService
+    AuthService,
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
   ],
   bootstrap: [AppComponent]
 })
