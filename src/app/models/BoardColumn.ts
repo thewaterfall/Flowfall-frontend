@@ -7,4 +7,8 @@ export class BoardColumn {
   public index: number;
   public board: Board;
   public rows: Row[];
+
+  constructor() {
+    this.rows = [];
+  }
 }
