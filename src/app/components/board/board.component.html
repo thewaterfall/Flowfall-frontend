@@ -1,1 +1,34 @@
-<p>board works!</p>
+<div class="board-container">
+  <div class="board-title">
+    {{currentBoard.name}}
+  </div>
+
+  <div cdkDropList
+       [cdkDropListData]="currentBoard.boardColumns"
+       (cdkDropListDropped)="dropColumn($event)"
+       cdkDropListOrientation="horizontal"
+       fxLayout="row" fxLayoutGap="10px">
+
+    <div class="column" *ngFor="let column of currentBoard.boardColumns" cdkDrag
+         fxFlexAlign="start">
+      <div class="column-title">{{column.name}}</div>
+
+      <div [id]="column.name"
+           cdkDropList
+           [cdkDropListData]="column.rows"
+           (cdkDropListDropped)="dropRow($event)"
+           [cdkDropListConnectedTo]="connectedList"
+           fxLayout="column" fxLayoutGap="5px">
+        <div class="row" *ngFor="let row of column.rows" cdkDrag>
+          {{row.content}}
+        </div>
+        <div class="add-row-box" (click)="addRow(column)">Add row</div>
+      </div>
+    </div>
+
+    <div class="add-column" fxFlexAlign="start">
+      <div class="add-column-box" (click)="addColumn()">Add column</div>
+    </div>
+
+  </div>
+</div>

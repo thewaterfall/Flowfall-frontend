@@ -1,1 +1,5 @@
 <p>boardspace works!</p>
+
+<div *ngFor="let board of boards">
+  <div (click)="navigateToBoard(board)">{{board.name}}</div>
+</div>
