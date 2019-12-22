@@ -4,6 +4,7 @@ import {Role} from '../../models/Role';
 
 const TOKEN_KEY = 'AuthAccessToken';
 const EMAIL_KEY = 'AuthEmail';
+const ID_KEY = 'AuthId';
 const AUTHORITIES_KEY = 'AuthAuthorities';
 
 @Injectable()
@@ -47,6 +48,15 @@ export class TokenStorageService {
 
   getEmail(): string {
     return window.sessionStorage.getItem(EMAIL_KEY);
+  }
+
+  saveId(id: string) {
+    window.sessionStorage.removeItem(ID_KEY);
+    window.sessionStorage.setItem(ID_KEY, id);
+  }
+
+  getId() {
+    return window.sessionStorage.getItem(ID_KEY);
   }
 
   saveAuthorities(authorities: string[]) {

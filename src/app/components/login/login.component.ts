@@ -24,6 +24,7 @@ export class LoginComponent implements OnInit {
     this.authService.authenticate(this.user).subscribe(data => {
       this.tokenStorage.saveToken(data.accessToken);
       this.tokenStorage.saveEmail(data.email);
+      this.tokenStorage.saveId(data.id);
       this.tokenStorage.saveAuthorities(data.authorities);
       window.location.reload();
     });
