@@ -18,6 +18,11 @@ import {LoginGuard} from './auth/guards/login.guard';
 import {AuthGuard} from './auth/guards/auth.guard';
 import {FormsModule} from '@angular/forms';
 import {FlexLayoutModule} from '@angular/flex-layout';
+import {BoardService} from './services/board.service';
+import { AddRowDialogComponent } from './components/dialogs/add-row-dialog/add-row-dialog.component';
+import { AddColumnDialogComponent } from './components/dialogs/add-column-dialog/add-column-dialog.component';
+import {BoardColumnService} from './services/board-column.service';
+import {RowService} from './services/row.service';
 
 @NgModule({
   declarations: [
@@ -25,7 +30,9 @@ import {FlexLayoutModule} from '@angular/flex-layout';
     LoginComponent,
     BoardspaceComponent,
     BoardComponent,
-    HeaderComponent
+    HeaderComponent,
+    AddRowDialogComponent,
+    AddColumnDialogComponent
   ],
   imports: [
     MaterialModule,
@@ -42,7 +49,14 @@ import {FlexLayoutModule} from '@angular/flex-layout';
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
     AuthGuard,
-    LoginGuard
+    LoginGuard,
+    BoardService,
+    BoardColumnService,
+    RowService
+  ],
+  entryComponents: [
+    AddRowDialogComponent,
+    AddColumnDialogComponent
   ],
   bootstrap: [AppComponent]
 })
