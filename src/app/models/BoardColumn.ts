@@ -8,7 +8,10 @@ export class BoardColumn {
   public board: Board;
   public rows: Row[];
 
-  constructor() {
+  constructor(name?: string, index?: number, boardId?: number) {
+    this.name = name;
+    this.index = index;
+    this.board = new Board(boardId);
     this.rows = [];
   }
 }
