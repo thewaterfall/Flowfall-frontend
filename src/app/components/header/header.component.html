@@ -1,4 +1,4 @@
-<mat-toolbar color="primary" fxLayoutAlign="center center" fxLayout="row">
+<mat-toolbar *ngIf="authService.isAuthenticated()" color="primary" fxLayoutAlign="center center" fxLayout="row">
   <div class="title">
     Flowfall
   </div>
