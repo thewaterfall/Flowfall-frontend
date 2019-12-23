@@ -6,4 +6,8 @@ export class Board {
   public name: string;
   public user: User;
   public boardColumns: BoardColumn[];
+
+  constructor(id?: number) {
+    this.id = id;
+  }
 }
