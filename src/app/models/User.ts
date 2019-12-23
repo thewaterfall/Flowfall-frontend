@@ -9,4 +9,8 @@ export class User {
   public profile: UserProfile;
   public roles: Role[];
   public boards: Board[];
+
+  constructor(id?: number) {
+    this.id = id;
+  }
 }

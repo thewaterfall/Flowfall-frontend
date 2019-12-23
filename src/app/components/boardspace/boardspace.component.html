@@ -2,6 +2,7 @@
   <p>Your boards:</p>
 
   <div fxLayout="row" fxLayoutGap="10px">
+    <mat-card (click)="addBoard()">+</mat-card>
     <mat-card *ngFor="let board of boards" (click)="navigateToBoard(board)">
       {{board.name}}
     </mat-card>

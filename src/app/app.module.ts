@@ -23,6 +23,7 @@ import { AddRowDialogComponent } from './components/dialogs/add-row-dialog/add-r
 import { AddColumnDialogComponent } from './components/dialogs/add-column-dialog/add-column-dialog.component';
 import {BoardColumnService} from './services/board-column.service';
 import {RowService} from './services/row.service';
+import { AddBoardDialogComponent } from './components/dialogs/add-board-dialog/add-board-dialog.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import {RowService} from './services/row.service';
     BoardComponent,
     HeaderComponent,
     AddRowDialogComponent,
-    AddColumnDialogComponent
+    AddColumnDialogComponent,
+    AddBoardDialogComponent
   ],
   imports: [
     MaterialModule,
@@ -56,7 +58,8 @@ import {RowService} from './services/row.service';
   ],
   entryComponents: [
     AddRowDialogComponent,
-    AddColumnDialogComponent
+    AddColumnDialogComponent,
+    AddBoardDialogComponent
   ],
   bootstrap: [AppComponent]
 })

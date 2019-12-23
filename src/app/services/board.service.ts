@@ -18,6 +18,10 @@ export class BoardService {
     return this.http.get<Board>(`${this.BASE_URL}/${id}`);
   }
 
+  addBoard(board: Board): Observable<Board> {
+    return this.http.post<Board>(this.BASE_URL, board);
+  }
+
   updateBoard(board: Board): Observable<any> {
     return this.http.put<Observable<any>>(this.BASE_URL, board);
   }
