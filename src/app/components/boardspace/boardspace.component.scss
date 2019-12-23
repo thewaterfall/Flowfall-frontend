@@ -1,0 +1,13 @@
+.boardspace-container {
+  margin: 10px;
+}
+
+mat-card {
+  cursor: pointer;
+
+  &:hover  {
+    background-color: #d9dade;
+    color: #000000;
+  }
+}
+
