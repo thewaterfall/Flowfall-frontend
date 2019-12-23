@@ -21,7 +21,7 @@ export class BoardComponent implements OnInit {
   currentBoard: Board = new Board();
   connectedList: string[] = [];
 
-  constructor(private route: ActivatedRoute, private dialog: MatDialog,
+  constructor(private route: ActivatedRoute, private router: Router, private dialog: MatDialog,
               private boardService: BoardService, private boardColumnService: BoardColumnService, private rowService: RowService) {
     this.route.params.subscribe(
       params => {
@@ -132,6 +132,15 @@ export class BoardComponent implements OnInit {
     this.boardColumnService.deleteBoardColumn(column.id).subscribe(
       data => {
         this.currentBoard.boardColumns = this.currentBoard.boardColumns.filter(col => col !== column);
+      },
+      error => console.log(error)
+    );
+  }
+
+  deleteBoard() {
+    this.boardService.deleteBoard(this.currentBoard.id).subscribe(
+      data => {
+        this.router.navigate(['/boardspace']);
       },
       error => console.log(error)
     );

@@ -22,4 +22,8 @@ export class BoardService {
     return this.http.put<Observable<any>>(this.BASE_URL, board);
   }
 
+  deleteBoard(id: number): Observable<any> {
+    return this.http.delete<Observable<any>>(`${this.BASE_URL}/${id}`);
+  }
+
 }

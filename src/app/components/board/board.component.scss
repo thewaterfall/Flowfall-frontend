@@ -3,10 +3,14 @@
 }
 
 .board-title {
+  width: 280px;
   display: inline-block;
-  padding: 10px 10px;
   font-size: 20px;
   cursor: pointer;
+
+  .board-title-content {
+    padding: 10px 10px;
+  }
 }
 
 .column {
