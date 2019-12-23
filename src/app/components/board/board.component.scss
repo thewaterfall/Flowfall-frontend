@@ -17,12 +17,17 @@
 }
 
 .row {
-  padding: 10px 10px;
   border-radius: 5px;
   cursor: pointer;
   background: white;
   font-size: 14px;
   margin: 0;
+  word-break: break-all;
+  display: flex;
+
+  .row-content {
+    padding: 10px 10px;
+  }
 
   &:hover {
     background-color: #d9dade;
@@ -56,8 +61,10 @@
 
 .column-title {
   cursor: pointer;
-  padding: 10px 10px;
-  //border: 1px solid black;
+
+  .column-title-content {
+    padding: 10px 10px;
+  }
 }
 
 .add-row-box {
@@ -75,7 +82,6 @@
 }
 
 .add-column {
-  //height: 50px;
   width: 270px;
   border-radius: 5px;
   background-color: #EBECF0;
@@ -93,4 +99,10 @@
       color: #000000;
     }
   }
+}
+
+.delete-icon {
+  font-size: 17px;
+  padding-right: 10px;
+  visibility: hidden;
 }

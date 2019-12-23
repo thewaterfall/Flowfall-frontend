@@ -8,6 +8,8 @@ import {Row} from '../../models/Row';
 import {MatDialog} from '@angular/material';
 import {AddRowDialogComponent} from '../dialogs/add-row-dialog/add-row-dialog.component';
 import {AddColumnDialogComponent} from '../dialogs/add-column-dialog/add-column-dialog.component';
+import {BoardColumnService} from '../../services/board-column.service';
+import {RowService} from '../../services/row.service';
 
 @Component({
   selector: 'app-board',
@@ -19,7 +21,8 @@ export class BoardComponent implements OnInit {
   currentBoard: Board = new Board();
   connectedList: string[] = [];
 
-  constructor(private route: ActivatedRoute, private boardService: BoardService, private dialog: MatDialog) {
+  constructor(private route: ActivatedRoute, private dialog: MatDialog,
+              private boardService: BoardService, private boardColumnService: BoardColumnService, private rowService: RowService) {
     this.route.params.subscribe(
       params => {
         this.boardId = params['id'];
@@ -88,9 +91,12 @@ export class BoardComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(data => {
       if (data !== undefined) {
-        this.currentBoard.boardColumns.push(data);
-        this.recalculateIndices(this.currentBoard);
-        this.boardService.updateBoard(this.currentBoard).subscribe();
+        this.boardColumnService.addBoardColumn(new BoardColumn(data.name,
+          this.currentBoard.boardColumns.length + 1,
+          this.currentBoard.id)).subscribe(
+          column => this.currentBoard.boardColumns.push(column),
+          error => console.log(error)
+        );
       }
     });
   }
@@ -102,16 +108,37 @@ export class BoardComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(data => {
       if (data !== undefined) {
-        column.rows.push(data);
-        this.recalculateIndices(this.currentBoard);
-        this.boardService.updateBoard(this.currentBoard).subscribe();
+        this.rowService.addRow(new Row(data.content, column.rows.length + 1, column.id)).subscribe(
+          row => column.rows.push(row),
+          error => console.log(error)
+        );
       }
     });
   }
 
-  // TODO: implement
   deleteRow(column: BoardColumn, row: Row) {
-    column.rows = column.rows.filter(colRow => colRow !== row);
+    this.rowService.deleteRow(row.id).subscribe(
+      data => {
+        column.rows = column.rows.filter(colRow => colRow !== row);
+      },
+      error => console.log(error)
+    );
   }
 
+  deleteColumn(column: BoardColumn) {
+    this.boardColumnService.deleteBoardColumn(column.id).subscribe(
+      data => {
+        this.currentBoard.boardColumns = this.currentBoard.boardColumns.filter(col => col !== column);
+      },
+      error => console.log(error)
+    );
+  }
+
+  showDeleteIcon(event) {
+      event.target.getElementsByClassName('delete-icon')[0].style.visibility = 'visible';
+  }
+
+  hideDeleteIcon(event) {
+    event.target.getElementsByClassName('delete-icon')[0].style.visibility = 'hidden';
+  }
 }
