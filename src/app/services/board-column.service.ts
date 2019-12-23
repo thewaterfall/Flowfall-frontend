@@ -19,8 +19,8 @@ export class BoardColumnService {
     return this.http.post<BoardColumn>(this.BASE_URL, boardColumn);
   }
 
-  deleteBoardColumn(id: string) {
-    this.http.delete(`${this.BASE_URL}/${id}`);
+  deleteBoardColumn(id: number): Observable<any> {
+   return this.http.delete(`${this.BASE_URL}/${id}`);
   }
 
 }

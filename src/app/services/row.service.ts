@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {environment} from '../../environments/environment';
 import {HttpClient} from '@angular/common/http';
-import {BoardColumn} from '../models/BoardColumn';
 import {Observable} from 'rxjs';
 import {Row} from '../models/Row';
 
@@ -20,8 +19,8 @@ export class RowService {
     return this.http.post<Row>(this.BASE_URL, row);
   }
 
-  deleteBoardColumn(id: string) {
-    this.http.delete(`${this.BASE_URL}/${id}`);
+  deleteRow(id: number): Observable<any> {
+    return this.http.delete(`${this.BASE_URL}/${id}`);
   }
 
 }
