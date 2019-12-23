@@ -94,7 +94,10 @@ export class BoardComponent implements OnInit {
         this.boardColumnService.addBoardColumn(new BoardColumn(data.name,
           this.currentBoard.boardColumns.length + 1,
           this.currentBoard.id)).subscribe(
-          column => this.currentBoard.boardColumns.push(column),
+          column => {
+            this.currentBoard.boardColumns.push(column);
+            this.connectedList.push(column.name);
+          } ,
           error => console.log(error)
         );
       }
