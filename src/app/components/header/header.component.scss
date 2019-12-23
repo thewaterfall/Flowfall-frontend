@@ -3,6 +3,11 @@
   margin-left: auto;
 }
 
+.title {
+  outline: none;
+  cursor: pointer;
+}
+
 .mat-toolbar-row, .mat-toolbar-single-row {
   height: 50px;
 }
