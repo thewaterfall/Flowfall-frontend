@@ -1,7 +1,12 @@
 <div class="board-container">
   <div class="board-title" (mouseenter)="showDeleteIcon($event)" (mouseleave)="hideDeleteIcon($event)"
        fxLayout="row" fxLayoutAlign="space-between">
-    <div class="board-title-content">{{currentBoard.name}}</div>
+    <div class="board-title-content" (click)="switchNameFieldMode()" *ngIf="nameFieldMode === 'view'">{{currentBoard.name}}</div>
+    <div class="board-title-content title-input" *ngIf="nameFieldMode === 'edit'">
+      <mat-form-field>
+        <input matInput (blur)="editBoardName($event)" [value]="currentBoard.name"/>
+      </mat-form-field>
+    </div>
     <div class="material-icons delete-icon" (click)="deleteBoard()"
          fxFlexAlign="center">
       delete

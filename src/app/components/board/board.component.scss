@@ -1,5 +1,17 @@
 .board-container {
   margin: 10px;
+
+  ::ng-deep .mat-form-field-appearance-legacy .mat-form-field-underline {
+    display: none !important;
+  }
+
+  ::ng-deep  .mat-form-field-appearance-legacy .mat-form-field-wrapper {
+    padding-bottom: 0 !important;
+  }
+
+  ::ng-deep .mat-form-field-infix {
+    border: none;
+  }
 }
 
 .board-title {
@@ -10,6 +22,10 @@
 
   .board-title-content {
     padding: 10px 10px;
+  }
+
+  .title-input {
+
   }
 }
 
@@ -110,3 +126,4 @@
   padding-right: 10px;
   visibility: hidden;
 }
+

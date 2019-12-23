@@ -11,6 +11,10 @@ import {AddColumnDialogComponent} from '../dialogs/add-column-dialog/add-column-
 import {BoardColumnService} from '../../services/board-column.service';
 import {RowService} from '../../services/row.service';
 
+enum FieldMode {
+  EDIT = 'edit', VIEW = 'view'
+}
+
 @Component({
   selector: 'app-board',
   templateUrl: './board.component.html',
@@ -21,6 +25,8 @@ export class BoardComponent implements OnInit {
   currentBoard: Board = new Board();
   connectedList: string[] = [];
 
+  nameFieldMode: FieldMode = FieldMode.VIEW;
+
   constructor(private route: ActivatedRoute, private router: Router, private dialog: MatDialog,
               private boardService: BoardService, private boardColumnService: BoardColumnService, private rowService: RowService) {
     this.route.params.subscribe(
@@ -29,7 +35,6 @@ export class BoardComponent implements OnInit {
 
         this.boardService.getBoardById(this.boardId).subscribe(
           data => {
-            console.log(data);
             this.currentBoard = data;
             this.fillConnectedList(data.boardColumns);
           },
@@ -144,6 +149,22 @@ export class BoardComponent implements OnInit {
       },
       error => console.log(error)
     );
+  }
+
+  editBoardName(event) {
+    let name = event.target.value;
+
+    if(name !== this.currentBoard.name) {
+      this.boardService.updateBoard(this.currentBoard).subscribe(data => {
+        this.currentBoard.name = name;
+      });
+    }
+
+    this.switchNameFieldMode();
+  }
+
+  switchNameFieldMode() {
+    this.nameFieldMode = this.nameFieldMode === FieldMode.VIEW ? FieldMode.EDIT : FieldMode.VIEW;
   }
 
   showDeleteIcon(event) {
