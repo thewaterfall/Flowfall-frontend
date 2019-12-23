@@ -1,9 +1,15 @@
-<mat-form-field>
-  <input matInput placeholder="Email" [(ngModel)]="user.email">
-</mat-form-field>
+<div class="login-container" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="60px">
+  <div class="login-title">FLOWFALL</div>
 
-<mat-form-field>
-  <input matInput placeholder="Password" type="password" [(ngModel)]="user.password">
-</mat-form-field>
+  <div class="login-form" fxLayout="column" fxLayoutGap="5px">
+    <mat-form-field>
+      <input matInput placeholder="Email" [(ngModel)]="user.email"/>
+    </mat-form-field>
 
-<button mat-stroked-button (click)="login()">Login</button>
+    <mat-form-field>
+      <input matInput placeholder="Password" type="password" [(ngModel)]="user.password"/>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" (click)="login()">Login</button>
+  </div>
+</div>
