@@ -1,9 +1,8 @@
-<mat-toolbar *ngIf="authService.isAuthenticated()" color="primary" fxLayoutAlign="center center" fxLayout="row">
-  <div class="title" routerLink="/boardspace">
-    Flowfall
-  </div>
+<mat-toolbar *ngIf="authService.isAuthenticated()" color="primary"
+             fxLayoutAlign="center center" fxLayout="row" fxLayoutGap="20px">
+  <div class="title" routerLink="/boardspace">Flowfall</div>
+  <div class="material-icons home" routerLink="/boardspace">home</div>
 
-  <i class="material-icons logout" (click)="logout()">
-    exit_to_app
-  </i>
+  <div class="material-icons person">person</div>
+  <div class="material-icons logout" (click)="logout()">exit_to_app</div>
 </mat-toolbar>

@@ -1,9 +1,18 @@
 .logout {
   cursor: pointer;
-  margin-left: auto;
 }
 
 .title {
+  outline: none;
+  cursor: pointer;
+}
+
+.person {
+  cursor: pointer;
+  margin-left: auto;
+}
+
+.home {
   outline: none;
   cursor: pointer;
 }
