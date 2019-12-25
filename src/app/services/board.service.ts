@@ -14,6 +14,10 @@ export class BoardService {
     return this.http.get<Board[]>(`${this.BASE_URL}/u/${id}`);
   }
 
+  getBoardsByCollaborator(id: string): Observable<Board[]> {
+    return this.http.get<Board[]>(`${this.BASE_URL}/u/${id}/collab`);
+  }
+
   getBoardById(id: string): Observable<Board> {
     return this.http.get<Board>(`${this.BASE_URL}/${id}`);
   }

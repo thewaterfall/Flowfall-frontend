@@ -15,6 +15,7 @@ import {User} from "../../models/User";
 export class BoardspaceComponent implements OnInit {
 
   boards: Board[] = [];
+  collabBoards: Board[] = [];
 
   constructor(private boardService: BoardService, private tokenStorage: TokenStorageService,
               private router: Router, private activatedRoute: ActivatedRoute, private dialog: MatDialog) { }
@@ -23,6 +24,13 @@ export class BoardspaceComponent implements OnInit {
     this.boardService.getBoardsByUserId(this.tokenStorage.getId()).subscribe(
       data => {
         this.boards = data;
+      },
+      error => console.log(error)
+    );
+
+    this.boardService.getBoardsByCollaborator(this.tokenStorage.getId()).subscribe(
+      data => {
+        this.collabBoards = data;
       },
       error => console.log(error)
     );
