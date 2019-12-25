@@ -12,20 +12,44 @@
   ::ng-deep .mat-form-field-infix {
     border: none;
   }
+
+  ::ng-deep .mat-form-field-appearance-legacy .mat-form-field-label {
+    font-size: 16px;
+    margin: 7px !important;
+  }
+
+  ::ng-deep .mat-form-field-appearance-legacy.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label {
+    display: none;
+  }
 }
 
 .board-title {
-  width: 280px;
   display: inline-block;
   font-size: 20px;
-  cursor: pointer;
 
   .board-title-content {
+    cursor: pointer;
     padding: 10px 10px;
   }
 
-  .title-input {
+  .title-name {
+    min-width: 175px;
+  }
 
+  .title-input {
+    width: 175px;
+    background-color: #c8cad1;
+    border-radius: 5px;
+    padding: 7px;
+  }
+
+  .form-field-input {
+    font-size: 16px;
+    font-weight: lighter;
+  }
+
+  button {
+    line-height: 32px !important;
   }
 }
 

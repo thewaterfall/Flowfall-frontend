@@ -154,17 +154,30 @@ export class BoardComponent implements OnInit {
   editBoardName(event) {
     let name = event.target.value;
 
-    if(name !== this.currentBoard.name) {
-      this.boardService.updateBoard(this.currentBoard).subscribe(data => {
-        this.currentBoard.name = name;
-      });
+    if (name !== this.currentBoard.name) {
+
+     this.boardService.updateBoard(new Board(this.currentBoard.id, name)).subscribe(
+        data => this.currentBoard.name = name,
+        error => console.log(error)
+      );
     }
 
     this.switchNameFieldMode();
   }
 
   switchNameFieldMode() {
-    this.nameFieldMode = this.nameFieldMode === FieldMode.VIEW ? FieldMode.EDIT : FieldMode.VIEW;
+    if (this.nameFieldMode === FieldMode.VIEW) {
+      this.nameFieldMode = FieldMode.EDIT;
+
+      setTimeout(f => {
+        let boardnameInput = document.getElementById('boardnameInput');
+        boardnameInput.focus();
+        boardnameInput.select();
+      }, 100);
+    } else {
+      this.nameFieldMode = FieldMode.VIEW;
+    }
+
   }
 
   showDeleteIcon(event) {
@@ -173,5 +186,14 @@ export class BoardComponent implements OnInit {
 
   hideDeleteIcon(event) {
     event.target.getElementsByClassName('delete-icon')[0].style.visibility = 'hidden';
+  }
+
+  inviteCollab(event) {
+    let collabEmail = event.value;
+    this.boardService.inviteCollaborator(this.currentBoard.id, collabEmail).subscribe(
+      data => console.log('Invited'),
+      error => console.log('Could not invite')
+    );
+
   }
 }

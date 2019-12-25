@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Board} from '../models/Board';
 import {environment} from '../../environments/environment';
@@ -32,6 +32,12 @@ export class BoardService {
 
   deleteBoard(id: number): Observable<any> {
     return this.http.delete<Observable<any>>(`${this.BASE_URL}/${id}`);
+  }
+
+  inviteCollaborator(boardId: number, collabEmail: string): Observable<any> {
+    let params = new HttpParams().set('collabEmail', collabEmail);
+
+    return this.http.post(`${this.BASE_URL}/${boardId}/invite`, null, {params: params});
   }
 
 }

@@ -7,7 +7,8 @@ export class Board {
   public user: User;
   public boardColumns: BoardColumn[];
 
-  constructor(id?: number) {
+  constructor(id?: number, name?: string) {
     this.id = id;
+    this.name = name;
   }
 }

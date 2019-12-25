@@ -1,16 +1,25 @@
 <div class="board-container">
-  <div class="board-title" (mouseenter)="showDeleteIcon($event)" (mouseleave)="hideDeleteIcon($event)"
-       fxLayout="row" fxLayoutAlign="space-between">
-    <div class="board-title-content" (click)="switchNameFieldMode()" *ngIf="nameFieldMode === 'view'">{{currentBoard.name}}</div>
-    <div class="board-title-content title-input" *ngIf="nameFieldMode === 'edit'">
-      <mat-form-field>
-        <input matInput (blur)="editBoardName($event)" [value]="currentBoard.name"/>
+  <div class="board-title"  fxLayout="row" fxLayoutAlign="start center">
+    <div class="board-title-content title-name" (mouseenter)="showDeleteIcon($event)" (mouseleave)="hideDeleteIcon($event)" (click)="switchNameFieldMode()"
+         *ngIf="nameFieldMode === 'view'">
+      {{currentBoard.name}}
+      <div class="material-icons delete-icon" (click)="deleteBoard()">delete</div>
+    </div>
+
+    <div class="board-title-content" *ngIf="nameFieldMode === 'edit'">
+      <mat-form-field class="form-field-input">
+        <input id="boardnameInput" class="title-input" matInput placeholder="Board name" (blur)="editBoardName($event)" [value]="currentBoard.name"/>
       </mat-form-field>
     </div>
-    <div class="material-icons delete-icon" (click)="deleteBoard()"
-         fxFlexAlign="center">
-      delete
+
+    <div class="board-title-content" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+      <button mat-raised-button color="primary" (click)="inviteCollab(emailInput)">Invite</button>
+
+      <mat-form-field class="form-field-input">
+        <input #emailInput class="title-input" matInput placeholder="Collaborator email"/>
+      </mat-form-field>
     </div>
+
   </div>
 
   <div cdkDropList
