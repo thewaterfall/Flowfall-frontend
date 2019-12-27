@@ -1,5 +1,6 @@
 .board-container {
-  margin: 10px;
+  height: 100%;
+  margin: 0 10px;
 
   ::ng-deep .mat-form-field-appearance-legacy .mat-form-field-underline {
     display: none !important;
@@ -21,6 +22,11 @@
   ::ng-deep .mat-form-field-appearance-legacy.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label {
     display: none;
   }
+}
+
+.board-content {
+  overflow-x: auto;
+  user-select: none;
 }
 
 .board-title {
@@ -54,7 +60,7 @@
 }
 
 .column {
-  width: 270px;
+  min-width: 270px;
   padding: 5px;
   border-radius: 5px;
   background-color: #EBECF0;
@@ -126,7 +132,7 @@
 }
 
 .add-column {
-  width: 270px;
+  min-width: 270px;
   border-radius: 5px;
   background-color: #EBECF0;
 
@@ -151,3 +157,23 @@
   visibility: hidden;
 }
 
+.board-content::-webkit-scrollbar-track
+{
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.11);
+  border-radius: 10px;
+  background-color: #F5F5F5;
+}
+
+.board-content::-webkit-scrollbar
+{
+  border-radius: 10px;
+  height: 10px;
+  background-color: #F5F5F5;
+}
+
+.board-content::-webkit-scrollbar-thumb
+{
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+  background-color: #3f51b5;
+}

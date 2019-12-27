@@ -1,4 +1,4 @@
-<div class="board-container">
+<div class="board-container" fxLayout="column">
   <div class="board-title"  fxLayout="row" fxLayoutAlign="start center">
     <div class="board-title-content title-name" (mouseenter)="showDeleteIcon($event)" (mouseleave)="hideDeleteIcon($event)" (click)="switchNameFieldMode()"
          *ngIf="nameFieldMode === 'view'">
@@ -22,11 +22,14 @@
 
   </div>
 
-  <div cdkDropList
+  <div class="board-content"
+       (mousemove)="isMouseDown && scrollBoardContent($event)"
+       (mousedown)="mouseDown($event)" (mouseup)="mouseUp()" (mouseleave)="mouseUp()"
+       cdkDropList
        [cdkDropListData]="currentBoard.boardColumns"
        (cdkDropListDropped)="dropColumn($event)"
        cdkDropListOrientation="horizontal"
-       fxLayout="row" fxLayoutGap="10px">
+       fxFlex="1 0" fxLayout="row" fxLayoutGap="10px">
 
     <div class="column" *ngFor="let column of currentBoard.boardColumns" cdkDrag
          fxFlexAlign="start">
