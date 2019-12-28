@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Board} from '../../models/Board';
 import {BoardService} from '../../services/board.service';
@@ -26,6 +26,10 @@ export class BoardComponent implements OnInit {
   connectedList: string[] = [];
 
   nameFieldMode: FieldMode = FieldMode.VIEW;
+
+  isMouseDown = false;
+  clickX;
+  clickScrollLeft;
 
   constructor(private route: ActivatedRoute, private router: Router, private dialog: MatDialog,
               private boardService: BoardService, private boardColumnService: BoardColumnService, private rowService: RowService) {
@@ -172,6 +176,7 @@ export class BoardComponent implements OnInit {
       setTimeout(f => {
         let boardnameInput = document.getElementById('boardnameInput');
         boardnameInput.focus();
+        // @ts-ignore
         boardnameInput.select();
       }, 100);
     } else {
@@ -195,5 +200,20 @@ export class BoardComponent implements OnInit {
       error => console.log('Could not invite')
     );
 
+  }
+
+  scrollBoardContent(event) {
+    let element = event.target;
+    element.scrollLeft = this.clickScrollLeft + (this.clickX - event.pageX);
+  }
+
+  mouseDown(event) {
+    this.isMouseDown = true;
+    this.clickX = event.pageX;
+    this.clickScrollLeft = event.target.scrollLeft;
+  }
+
+  mouseUp() {
+    this.isMouseDown = false;
   }
 }

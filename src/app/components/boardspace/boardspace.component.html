@@ -8,12 +8,14 @@
     </mat-card>
   </div>
 
-  <p>Your collaborating boards:</p>
+  <div *ngIf="collabBoards.length > 0">
+    <p>Your collaborating boards:</p>
 
-  <div fxLayout="row" fxLayoutGap="10px">
-    <mat-card *ngFor="let board of collabBoards" (click)="navigateToBoard(board)">
-      {{board.name}}
-    </mat-card>
+    <div fxLayout="row" fxLayoutGap="10px">
+      <mat-card *ngFor="let board of collabBoards" (click)="navigateToBoard(board)">
+        {{board.name}}
+      </mat-card>
+    </div>
   </div>
 
 </div>

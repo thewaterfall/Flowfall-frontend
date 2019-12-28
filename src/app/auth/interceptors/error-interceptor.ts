@@ -11,7 +11,7 @@ export class ErrorInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(req).pipe(catchError(err => {
-      if ([401, 403].indexOf(err.status)) {
+      if ([401, 403].indexOf(err.status) > 0) {
         this.tokenStorage.clear();
         window.location.reload();
       }
