@@ -27,11 +27,15 @@ export class BoardService {
   }
 
   updateBoard(board: Board): Observable<any> {
-    return this.http.put<Observable<any>>(this.BASE_URL, board);
+    return this.http.put<any>(this.BASE_URL, board);
   }
 
   deleteBoard(id: number): Observable<any> {
-    return this.http.delete<Observable<any>>(`${this.BASE_URL}/${id}`);
+    return this.http.delete<any>(`${this.BASE_URL}/${id}`);
+  }
+
+  deleteCollaborator(collabId: number, boardId: number): Observable<any> {
+    return this.http.delete<any>(`${this.BASE_URL}/${boardId}/u/${collabId}`);
   }
 
   inviteCollaborator(boardId: number, collabEmail: string): Observable<any> {

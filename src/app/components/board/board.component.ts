@@ -10,6 +10,9 @@ import {AddRowDialogComponent} from '../dialogs/add-row-dialog/add-row-dialog.co
 import {AddColumnDialogComponent} from '../dialogs/add-column-dialog/add-column-dialog.component';
 import {BoardColumnService} from '../../services/board-column.service';
 import {RowService} from '../../services/row.service';
+import {User} from '../../models/User';
+import {UserService} from '../../services/user.service';
+import {MenuDialogComponent} from '../dialogs/menu-dialog/menu-dialog.component';
 
 enum FieldMode {
   EDIT = 'edit', VIEW = 'view'
@@ -24,6 +27,7 @@ export class BoardComponent implements OnInit {
   boardId: string;
   currentBoard: Board = new Board();
   connectedList: string[] = [];
+  collaborators: User[] = [];
 
   nameFieldMode: FieldMode = FieldMode.VIEW;
 
@@ -31,8 +35,12 @@ export class BoardComponent implements OnInit {
   clickX;
   clickScrollLeft;
 
+  menuRef;
+  isMenuOpened = false;
+
   constructor(private route: ActivatedRoute, private router: Router, private dialog: MatDialog,
-              private boardService: BoardService, private boardColumnService: BoardColumnService, private rowService: RowService) {
+              private boardService: BoardService, private boardColumnService: BoardColumnService, private rowService: RowService,
+              private userService: UserService) {
     this.route.params.subscribe(
       params => {
         this.boardId = params['id'];
@@ -40,10 +48,17 @@ export class BoardComponent implements OnInit {
         this.boardService.getBoardById(this.boardId).subscribe(
           data => {
             this.currentBoard = data;
+            console.log(data);
             this.fillConnectedList(data.boardColumns);
+
+            this.userService.getCollaboratorsByBoardId(this.currentBoard.id).subscribe(
+              collabs => this.collaborators = collabs,
+              error => console.log(error)
+            );
           },
           error => console.log(error)
         );
+
       }
     );
   }
@@ -126,6 +141,27 @@ export class BoardComponent implements OnInit {
         );
       }
     });
+  }
+
+  openMenu() {
+    if (this.menuRef !== undefined && this.isMenuOpened === true) {
+      this.menuRef.close();
+    } else {
+      this.menuRef = this.dialog.open(MenuDialogComponent, {
+        data: this.currentBoard.id,
+        disableClose: true,
+        hasBackdrop: false,
+        width: '400px',
+        height: '80vh',
+        position: {
+          top: '100px',
+          right: '20px'
+        },
+      });
+
+      this.menuRef.afterOpened().subscribe(() => this.isMenuOpened = true);
+      this.menuRef.afterClosed().subscribe(() => this.isMenuOpened = false);
+    }
   }
 
   deleteRow(column: BoardColumn, row: Row) {

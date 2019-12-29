@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import {MatButtonModule, MatCardModule, MatDialogModule, MatInputModule, MatToolbarModule} from '@angular/material';
+import {MatButtonModule, MatCardModule, MatDialogModule, MatInputModule, MatToolbarModule, MatTooltipModule} from '@angular/material';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 
 let components = [
@@ -10,7 +10,8 @@ let components = [
   MatDialogModule,
   MatButtonModule,
   MatInputModule,
-  MatCardModule
+  MatCardModule,
+  MatTooltipModule
 ];
 
 @NgModule({

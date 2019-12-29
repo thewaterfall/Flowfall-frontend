@@ -12,12 +12,19 @@
       </mat-form-field>
     </div>
 
-    <div class="board-title-content" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+    <div class="board-title-content"
+         fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px" fxShow.xs="false">
       <button mat-raised-button color="primary" (click)="inviteCollab(emailInput)">Invite</button>
 
       <mat-form-field class="form-field-input">
         <input #emailInput class="title-input" matInput placeholder="Collaborator email"/>
       </mat-form-field>
+    </div>
+
+    <div class="board-title-content menu" (click)="openMenu()"
+         fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
+      <div>Menu</div>
+      <div class="material-icons">menu</div>
     </div>
 
   </div>
@@ -65,5 +72,9 @@
       <div class="add-column-box" (click)="addColumn()">Add column</div>
     </div>
 
+  </div>
+
+  <div *ngFor="let collab of collaborators">
+    {{collab.email}}
   </div>
 </div>

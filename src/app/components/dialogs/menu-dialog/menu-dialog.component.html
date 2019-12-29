@@ -1,0 +1,31 @@
+<div class="menu-wrapper">
+  <div class="menu-header" fxLayout="row" fxLayoutAlign="start center">
+    <div>Menu</div>
+    <div class="material-icons close-menu" (click)="close()">close</div>
+  </div>
+
+  <div class="menu-container">
+    <div>
+      <div>Participants: </div>
+
+      <div class="participants">
+        <div class="board-owner" fxLayout="row" fxLayoutAlign="start center">
+          <div>{{owner.email}}</div>
+          <div class="material-icons owner-icon"  matTooltip="Owner">star</div>
+        </div>
+
+        <div class="board-collaborators">
+          <div *ngFor="let collab of collaborators" fxLayout="row" fxLayoutAlign="start center">
+            <div>{{collab.email}}</div>
+            <div class="material-icons delete-icon" *ngIf="owner.id !== undefined && tokenStorage.getId() === owner.id.toString()"
+                 (click)="deleteCollaborator(collab.id)">
+              delete
+            </div>
+          </div>
+        </div>
+      </div>
+
+      </div>
+  </div>
+
+</div>
