@@ -13,6 +13,7 @@ import {RowService} from '../../services/row.service';
 import {User} from '../../models/User';
 import {UserService} from '../../services/user.service';
 import {MenuDialogComponent} from '../dialogs/menu-dialog/menu-dialog.component';
+import {TokenStorageService} from '../../auth/services/token-storage.service';
 
 enum FieldMode {
   EDIT = 'edit', VIEW = 'view'
@@ -24,6 +25,8 @@ enum FieldMode {
   styleUrls: ['./board.component.scss']
 })
 export class BoardComponent implements OnInit {
+  isOwner: boolean = false;
+
   boardId: string;
   currentBoard: Board = new Board();
   connectedList: string[] = [];
@@ -40,7 +43,7 @@ export class BoardComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private router: Router, private dialog: MatDialog,
               private boardService: BoardService, private boardColumnService: BoardColumnService, private rowService: RowService,
-              private userService: UserService) {
+              private userService: UserService, private tokenStorage: TokenStorageService) {
     this.route.params.subscribe(
       params => {
         this.boardId = params['id'];
@@ -48,13 +51,16 @@ export class BoardComponent implements OnInit {
         this.boardService.getBoardById(this.boardId).subscribe(
           data => {
             this.currentBoard = data;
-            console.log(data);
             this.fillConnectedList(data.boardColumns);
 
             this.userService.getCollaboratorsByBoardId(this.currentBoard.id).subscribe(
               collabs => this.collaborators = collabs,
               error => console.log(error)
             );
+
+            this.userService.getOwnerByBoardId(this.currentBoard.id).subscribe(
+              owner => this.isOwner = owner.id.toString() === tokenStorage.getId()
+            )
           },
           error => console.log(error)
         );
@@ -166,27 +172,21 @@ export class BoardComponent implements OnInit {
 
   deleteRow(column: BoardColumn, row: Row) {
     this.rowService.deleteRow(row.id).subscribe(
-      data => {
-        column.rows = column.rows.filter(colRow => colRow !== row);
-      },
+      () => column.rows = column.rows.filter(colRow => colRow !== row),
       error => console.log(error)
     );
   }
 
   deleteColumn(column: BoardColumn) {
     this.boardColumnService.deleteBoardColumn(column.id).subscribe(
-      data => {
-        this.currentBoard.boardColumns = this.currentBoard.boardColumns.filter(col => col !== column);
-      },
+      () => this.currentBoard.boardColumns = this.currentBoard.boardColumns.filter(col => col !== column),
       error => console.log(error)
     );
   }
 
   deleteBoard() {
     this.boardService.deleteBoard(this.currentBoard.id).subscribe(
-      data => {
-        this.router.navigate(['/boardspace']);
-      },
+      () => this.router.navigate(['/boardspace']),
       error => console.log(error)
     );
   }
@@ -222,7 +222,7 @@ export class BoardComponent implements OnInit {
   }
 
   showDeleteIcon(event) {
-      event.target.getElementsByClassName('delete-icon')[0].style.visibility = 'visible';
+    event.target.getElementsByClassName('delete-icon')[0].style.visibility = 'visible';
   }
 
   hideDeleteIcon(event) {

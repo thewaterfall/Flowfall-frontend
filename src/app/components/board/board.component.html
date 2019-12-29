@@ -1,9 +1,10 @@
 <div class="board-container" fxLayout="column">
   <div class="board-title"  fxLayout="row" fxLayoutAlign="start center">
-    <div class="board-title-content title-name" (mouseenter)="showDeleteIcon($event)" (mouseleave)="hideDeleteIcon($event)" (click)="switchNameFieldMode()"
-         *ngIf="nameFieldMode === 'view'">
-      {{currentBoard.name}}
-      <div class="material-icons delete-icon" (click)="deleteBoard()">delete</div>
+    <div class="board-title-content title-name"
+         (mouseenter)="isOwner && showDeleteIcon($event)" (mouseleave)="isOwner && hideDeleteIcon($event)" *ngIf="nameFieldMode === 'view'"
+          fxLayout="row" fxLayoutAlign="start center">
+      <div (click)="switchNameFieldMode()">{{currentBoard.name}}</div>
+      <div class="material-icons delete-icon" *ngIf="isOwner" (click)="deleteBoard()">delete</div>
     </div>
 
     <div class="board-title-content" *ngIf="nameFieldMode === 'edit'">
