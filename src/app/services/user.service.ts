@@ -11,6 +11,10 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
+  getOwnerByBoardId(boardId: number): Observable<User> {
+    return this.http.get<User>(`${this.BASE_URL}/b/${boardId}/owner`);
+  }
+
   getCollaboratorsByBoardId(boardId: number): Observable<User[]> {
     return this.http.get<User[]>(`${this.BASE_URL}/b/${boardId}/collab`);
   }
