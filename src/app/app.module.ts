@@ -26,6 +26,7 @@ import {RowService} from './services/row.service';
 import { AddBoardDialogComponent } from './components/dialogs/add-board-dialog/add-board-dialog.component';
 import {UserService} from './services/user.service';
 import { MenuDialogComponent } from './components/dialogs/menu-dialog/menu-dialog.component';
+import {Oauth2Service} from './auth/services/oauth2.service';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { MenuDialogComponent } from './components/dialogs/menu-dialog/menu-dialo
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
     AuthGuard,
+    Oauth2Service,
     LoginGuard,
     BoardService,
     BoardColumnService,
