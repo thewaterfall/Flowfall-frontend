@@ -27,6 +27,7 @@ import { AddBoardDialogComponent } from './components/dialogs/add-board-dialog/a
 import {UserService} from './services/user.service';
 import { MenuDialogComponent } from './components/dialogs/menu-dialog/menu-dialog.component';
 import {Oauth2Service} from './auth/services/oauth2.service';
+import { Oauth2Component } from './components/oauth2/oauth2.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import {Oauth2Service} from './auth/services/oauth2.service';
     AddRowDialogComponent,
     AddColumnDialogComponent,
     AddBoardDialogComponent,
-    MenuDialogComponent
+    MenuDialogComponent,
+    Oauth2Component
   ],
   imports: [
     MaterialModule,
