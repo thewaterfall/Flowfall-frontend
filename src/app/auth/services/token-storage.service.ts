@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {JwtHelperService} from '@auth0/angular-jwt';
 import {Role} from '../../models/Role';
+import {JwtResponse} from '../JwtResponse';
 
 const TOKEN_KEY = 'AuthAccessToken';
 const EMAIL_KEY = 'AuthEmail';
@@ -16,6 +17,13 @@ export class TokenStorageService {
 
   clear() {
     window.sessionStorage.clear();
+  }
+
+  saveData(data: JwtResponse) {
+    this.saveToken(data.accessToken);
+    this.saveEmail(data.email);
+    this.saveId(data.id);
+    this.saveAuthorities(data.authorities);
   }
 
   isTokenValid(token: string) {
