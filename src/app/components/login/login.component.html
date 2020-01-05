@@ -1,10 +1,15 @@
-<div class="login-container" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="60px">
+<div class="login-wrapper" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="60px">
   <div class="login-title">FLOWFALL</div>
 
-  <div class="login-form" fxLayout="column" fxLayoutGap="5px">
+  <div class="login-container" fxLayout="column" fxLayoutGap="5px">
 
-    <div>
-      <a href="http://localhost:8080/oauth2/code?provider=google&redirect_uri=http://localhost:4200/oauth2">LINK oauth2 [GOOGLE]</a>
+    <div class="socials">
+      <a class="social-btn"
+         [href]="GOOGLE_PROVIDER_URL"
+         fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="50px">
+        <img src="/assets/logos/google-logo.png" alt="Google logo" width="40px" height="40px">
+        <div>Sign in with Google</div>
+      </a>
     </div>
 
     <mat-form-field>

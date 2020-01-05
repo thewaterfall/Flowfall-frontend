@@ -1,4 +1,4 @@
-.login-container {
+.login-wrapper {
   height: 100vh;
 
   .login-title {
@@ -8,7 +8,30 @@
   }
 }
 
-.login-form {
-  width: 300px;
+.login-container {
+  border: 1px solid black;
+  border-radius: 3px;
+  box-shadow: 0 0 10px gray;
+
+  padding: 40px;
+  width: 380px;
+}
+
+.socials {
+
+  margin-bottom: 40px !important;
+
+  .social-btn {
+    text-decoration: none;
+    color: black;
+
+    border: 1px solid black;
+    border-radius: 5px;
+
+    &:hover {
+      color: white;
+      background-color: #3f51b5;
+    }
+  }
 }
 
