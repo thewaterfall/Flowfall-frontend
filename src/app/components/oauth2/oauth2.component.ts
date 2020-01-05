@@ -16,10 +16,14 @@ export class Oauth2Component implements OnInit {
 
     this.route.queryParams.subscribe(
       params => {
-        const jwtResponse: JwtResponse = JSON.parse(atob(params.response));
+        if (params.error !== undefined) {
+          this.router.navigate(['/login']);
+        } else {
+          const jwtResponse: JwtResponse = JSON.parse(atob(params.response));
 
-        this.tokenStorage.saveData(jwtResponse);
-        this.router.navigate(['/boardspace']);
+          this.tokenStorage.saveData(jwtResponse);
+          this.router.navigate(['/boardspace']);
+        }
       });
   }
 
