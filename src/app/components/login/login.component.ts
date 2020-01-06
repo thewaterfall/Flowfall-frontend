@@ -12,6 +12,8 @@ import {GOOGLE_PROVIDER, REDIRECT_URI} from '../../constants/OAuth2Constants';
 })
 export class LoginComponent implements OnInit {
 
+  private oauth2ProviderOpenedTimer;
+
   private user: User;
   private GOOGLE_PROVIDER_URL = `${environment.oauth2_url}?provider=${GOOGLE_PROVIDER}&redirect_uri=${REDIRECT_URI}`;
 
@@ -30,4 +32,24 @@ export class LoginComponent implements OnInit {
       window.location.reload();
     });
   }
+
+  navigateToProvider(provider: string) {
+    const width = 500;
+    const height = 600;
+
+    const left = (screen.width / 2) - (width / 2);
+    const top = (screen.height / 2) - (height / 2);
+
+    const win = window.open(provider, 'Provider authentication',
+      `width=${width}, height=${height}, left=${left}, top=${top}`);
+
+    clearInterval(this.oauth2ProviderOpenedTimer);
+    this.oauth2ProviderOpenedTimer = setInterval(() => {
+      if (win.closed) {
+        clearInterval(this.oauth2ProviderOpenedTimer);
+        location.reload();
+      }
+    }, 1000);
+  }
+
 }

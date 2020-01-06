@@ -4,12 +4,12 @@
   <div class="login-container" fxLayout="column" fxLayoutGap="5px">
 
     <div class="socials">
-      <a class="social-btn"
-         [href]="GOOGLE_PROVIDER_URL"
+      <div class="social-btn"
+         (click)="navigateToProvider(GOOGLE_PROVIDER_URL)"
          fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="50px">
         <img src="/assets/logos/google-logo.png" alt="Google logo" width="40px" height="40px">
         <div>Sign in with Google</div>
-      </a>
+      </div>
     </div>
 
     <mat-form-field>
