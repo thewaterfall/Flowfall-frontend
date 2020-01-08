@@ -2,6 +2,7 @@
   height: 100vh;
 
   .login-title {
+    color: white;
     font-family: "Lucida Console", Monaco, monospace;
     font-size: 50px;
     letter-spacing: 9px;
@@ -9,12 +10,38 @@
 }
 
 .login-container {
-  border: 1px solid black;
-  border-radius: 3px;
-  box-shadow: 0 0 10px gray;
 
-  padding: 40px;
-  width: 380px;
+  .left-block {
+    background-color: #3f51b5;
+    width: 50vw;
+    height: 100vh;
+  }
+
+  .right-block {
+    width: 50vw;
+    height: 100vh;
+  }
+
+  .left-block {
+    color: white;
+  }
+
+  .login-form {
+    border: 1px solid black;
+    border-radius: 3px;
+    box-shadow: 0 0 5px gray;
+
+    padding: 40px;
+    width: 380px;
+
+    mat-form-field {
+      width: 100%;
+    }
+  }
+
+  .title-points {
+    font-size: 20px;
+  }
 }
 
 .socials {
@@ -24,11 +51,12 @@
   .social-btn {
     text-decoration: none;
     color: black;
-
     border: 1px solid black;
     border-radius: 5px;
 
     cursor: pointer;
+
+    padding-right: 30px;
 
     &:hover {
       color: white;
