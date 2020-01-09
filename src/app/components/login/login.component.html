@@ -24,12 +24,19 @@
     <div class="right-block" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="5px">
 
      <div class="login-form" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="5px">
-       <div class="socials">
+       <div class="socials" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
+         <div class="social-btn"
+              (click)="navigateToProvider(FACEBOOK_PROVIDER_URL)"
+              fxLayout="row" fxLayoutAlign="start center" >
+           <img src="/assets/logos/fb-logo.png" alt="Facebook logo" width="30px" height="30px">
+           <div class="social-btn-text">Sign in with Facebook</div>
+         </div>
+
          <div class="social-btn"
               (click)="navigateToProvider(GOOGLE_PROVIDER_URL)"
-              fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="30px">
-           <img src="/assets/logos/google-logo.png" alt="Google logo" width="40px" height="40px">
-           <div>Sign in with Google</div>
+              fxLayout="row" fxLayoutAlign="start center">
+           <img src="/assets/logos/google-logo.png" alt="Google logo" width="30px" height="30px">
+           <div class="social-btn-text">Sign in with Google</div>
          </div>
        </div>
 
@@ -41,7 +48,7 @@
          <input matInput placeholder="Password" type="password" [(ngModel)]="user.password"/>
        </mat-form-field>
 
-       <button mat-raised-button color="primary" (click)="login()">Login</button>
+       <button mat-raised-button color="primary" (click)="login()">Sign in</button>
      </div>
     </div>
 

@@ -27,7 +27,6 @@
   }
 
   .login-form {
-    border: 1px solid black;
     border-radius: 3px;
     box-shadow: 0 0 5px gray;
 
@@ -45,18 +44,27 @@
 }
 
 .socials {
-
+  width: 300px;
   margin-bottom: 40px !important;
 
   .social-btn {
+    box-shadow: 0 0 2px gray;
     text-decoration: none;
     color: black;
-    border: 1px solid black;
     border-radius: 5px;
+    width: 100%;
 
     cursor: pointer;
 
-    padding-right: 30px;
+    padding: 3px 30px 3px 3px;
+
+    .social-btn-text {
+      margin: auto;
+    }
+
+    img {
+      border-radius: 5px;
+    }
 
     &:hover {
       color: white;
