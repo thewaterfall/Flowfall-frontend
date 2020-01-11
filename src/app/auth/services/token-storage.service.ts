@@ -22,7 +22,6 @@ export class TokenStorageService {
   saveData(data: JwtResponse) {
     this.saveToken(data.accessToken);
     this.saveEmail(data.email);
-    this.saveId(data.id);
     this.saveAuthorities(data.authorities);
   }
 
@@ -58,13 +57,11 @@ export class TokenStorageService {
     return window.localStorage.getItem(EMAIL_KEY);
   }
 
-  saveId(id: string) {
-    window.localStorage.removeItem(ID_KEY);
-    window.localStorage.setItem(ID_KEY, id);
-  }
-
   getId() {
-    return window.localStorage.getItem(ID_KEY);
+    let jwtData = this.getToken().split('.')[1];
+    let decodedJwt = JSON.parse(atob(jwtData));
+
+    return decodedJwt.id;
   }
 
   saveAuthorities(authorities: string[]) {
