@@ -2,12 +2,13 @@ import {BoardColumn} from './BoardColumn';
 
 export class Row {
   public id: number;
+  public name: string;
   public content: string;
   public index: number;
   public boardColumn: BoardColumn;
 
-  constructor(content?: string, index?: number, boardColumnId?: number) {
-    this.content = content;
+  constructor(name?: string, index?: number, boardColumnId?: number) {
+    this.name = name;
     this.index = index;
 
     let boardColumn = new BoardColumn();

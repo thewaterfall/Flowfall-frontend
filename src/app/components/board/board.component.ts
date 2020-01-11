@@ -14,6 +14,7 @@ import {User} from '../../models/User';
 import {UserService} from '../../services/user.service';
 import {MenuDialogComponent} from '../dialogs/menu-dialog/menu-dialog.component';
 import {TokenStorageService} from '../../auth/services/token-storage.service';
+import {RowFeedDialogComponent} from "../dialogs/row-feed-dialog/row-feed-dialog.component";
 
 enum FieldMode {
   EDIT = 'edit', VIEW = 'view'
@@ -141,7 +142,7 @@ export class BoardComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(data => {
       if (data !== undefined) {
-        this.rowService.addRow(new Row(data.content, column.rows.length + 1, column.id)).subscribe(
+        this.rowService.addRow(new Row(data.name, column.rows.length + 1, column.id)).subscribe(
           row => column.rows.push(row),
           error => console.log(error)
         );
@@ -168,6 +169,14 @@ export class BoardComponent implements OnInit {
       this.menuRef.afterOpened().subscribe(() => this.isMenuOpened = true);
       this.menuRef.afterClosed().subscribe(() => this.isMenuOpened = false);
     }
+  }
+
+  openRowFeed(row: Row) {
+    let dialogRef = this.dialog.open(RowFeedDialogComponent, {
+      data: row,
+      width: '50vw',
+      height: '90vh'
+    })
   }
 
   deleteRow(column: BoardColumn, row: Row) {
@@ -218,7 +227,6 @@ export class BoardComponent implements OnInit {
     } else {
       this.nameFieldMode = FieldMode.VIEW;
     }
-
   }
 
   showDeleteIcon(event) {
