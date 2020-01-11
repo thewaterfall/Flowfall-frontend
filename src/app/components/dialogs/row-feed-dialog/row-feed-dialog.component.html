@@ -1,7 +1,8 @@
 <div class="rowfeed-wrapper" fxLayout="column" fxLayoutGap="20px">
-  <div class="rowfeed-name">
+  <div class="rowfeed-name" fxLayoutAlign="start center" fxLayoutGap="5px">
+    <div class="material-icons">title</div>
     <div *ngIf="nameFieldMode === 'view'"
-         fxLayout="row" fxLayoutAlign="start center">
+         fxLayout="row">
       <div (click)="switchNameFieldMode()">{{row.name}}</div>
     </div>
 
@@ -13,7 +14,10 @@
   </div>
 
   <div class="rowfeed-content">
-    <div>Row content</div>
+    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
+      <div class="material-icons">description</div>
+      <div>Row content</div>
+    </div>
 
     <div class="content-field">
       <div *ngIf="contentFieldMode === 'view'"
