@@ -1,0 +1,17 @@
+<div class="multi-mode-input-wrapper">
+  <div class="view-mode" *ngIf="inputMode === 'view'"
+       fxLayout="row" fxLayoutAlign="start center">
+    <div [style.min-width]="minWidthStyle" (click)="switchInputMode()">{{value}}</div>
+  </div>
+
+  <div class="edit-mode" *ngIf="inputMode === 'edit'">
+    <mat-form-field class="form-field-input" [style.width]="minWidthStyle">
+      <input *ngIf="!textArea" matInput id="valueInput" class="edit-mode-input"
+             (blur)="changeValue()" [(ngModel)]="value"/>
+
+      <textarea *ngIf="textArea" matInput cdkTextareaAutosize id="valueInput" class="edit-mode-input"
+                [style.width]="minWidthStyle" (blur)="changeValue()" [(ngModel)]="value">
+      </textarea>
+    </mat-form-field>
+  </div>
+</div>
