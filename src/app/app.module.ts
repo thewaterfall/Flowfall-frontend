@@ -27,6 +27,7 @@ import { AddBoardDialogComponent } from './components/dialogs/add-board-dialog/a
 import {UserService} from './services/user.service';
 import { MenuDialogComponent } from './components/dialogs/menu-dialog/menu-dialog.component';
 import { Oauth2Component } from './components/oauth2/oauth2.component';
+import { MultiModeInputComponent } from './components/multi-mode-input/multi-mode-input.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { Oauth2Component } from './components/oauth2/oauth2.component';
     AddColumnDialogComponent,
     AddBoardDialogComponent,
     MenuDialogComponent,
-    Oauth2Component
+    Oauth2Component,
+    MultiModeInputComponent
   ],
   imports: [
     MaterialModule,
