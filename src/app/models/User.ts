@@ -8,7 +8,7 @@ export class User {
   public password: string;
   public profile: UserProfile;
   public roles: Role[];
-  public boards: Board[];
+  // public boards: Board[];
 
   constructor(id?: number) {
     this.id = id;
