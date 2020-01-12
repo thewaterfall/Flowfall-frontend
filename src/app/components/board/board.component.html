@@ -1,20 +1,15 @@
 <div class="board-container" fxLayout="column">
-  <div class="board-title"  fxLayout="row" fxLayoutAlign="start center">
-    <div class="board-title-content title-name"
-         (mouseenter)="isOwner && showDeleteIcon($event)" (mouseleave)="isOwner && hideDeleteIcon($event)" *ngIf="nameFieldMode === 'view'"
+  <div class="board-title"  fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+    <div class="board-name"
+         (mouseenter)="isOwner && showDeleteIcon($event)" (mouseleave)="isOwner && hideDeleteIcon($event)"
           fxLayout="row" fxLayoutAlign="start center">
-      <div (click)="switchNameFieldMode()">{{currentBoard.name}}</div>
+      <multi-mode-input [value]="currentBoard.name" [minWidthStyle]="'220px'"
+                        (valueChanged)="editBoardName($event)">
+      </multi-mode-input>
       <div class="material-icons delete-icon" *ngIf="isOwner" (click)="deleteBoard()">delete</div>
     </div>
 
-    <div class="board-title-content" *ngIf="nameFieldMode === 'edit'">
-      <mat-form-field class="form-field-input">
-        <input id="boardnameInput" class="title-input" matInput placeholder="Board name" (blur)="editBoardName($event)" [value]="currentBoard.name"/>
-      </mat-form-field>
-    </div>
-
-    <div class="board-title-content"
-         fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px" fxShow.xs="false">
+    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px" fxHide.lt-md>
       <button mat-raised-button color="primary" (click)="inviteCollab(emailInput)">Invite</button>
 
       <mat-form-field class="form-field-input">
@@ -22,9 +17,9 @@
       </mat-form-field>
     </div>
 
-    <div class="board-title-content menu" (click)="openMenu()"
+    <div class="menu" (click)="openMenu()"
          fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
-      <div>Menu</div>
+      <div fxHide.lt-sm>Menu</div>
       <div class="material-icons">menu</div>
     </div>
 

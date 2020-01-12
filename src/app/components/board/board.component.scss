@@ -31,32 +31,31 @@
 }
 
 .board-title {
+  padding: 5px 0;
   display: inline-block;
   font-size: 20px;
 
-  .board-title-content {
+  .board-name {
+    padding: 0 5px;
+    min-width: 280px;
     cursor: pointer;
-    padding: 10px 10px;
-  }
-
-  .title-name {
-    min-width: 180px;
   }
 
   .title-input {
-    width: 175px;
     background-color: #c8cad1;
     border-radius: 5px;
     padding: 7px;
   }
 
   .form-field-input {
+    width: 188px;
     font-size: 16px;
     font-weight: lighter;
   }
 
   .menu {
     margin-left: auto;
+    cursor: pointer;
   }
 
   button {
@@ -160,6 +159,8 @@
   font-size: 17px;
   padding-right: 10px;
   visibility: hidden;
+  cursor: pointer;
+  margin-left: auto;
 }
 
 .board-content::-webkit-scrollbar-track
