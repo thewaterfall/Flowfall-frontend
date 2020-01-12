@@ -38,7 +38,9 @@
          fxFlexAlign="start">
       <div class="column-title" (mouseenter)="showDeleteIcon($event)" (mouseleave)="hideDeleteIcon($event)"
            fxLayout="row" fxLayoutAlign="space-between center">
-        <div class="column-title-content">{{column.name}}</div>
+        <div class="column-title-content">
+          <multi-mode-input [value]="column.name" (valueChanged)="editColumnName($event, column)"></multi-mode-input>
+        </div>
         <div class="material-icons delete-icon" (click)="deleteColumn(column)"
              fxFlexAlign="center">
           delete

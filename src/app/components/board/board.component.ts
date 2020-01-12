@@ -201,6 +201,18 @@ export class BoardComponent implements OnInit {
     }
   }
 
+  editColumnName(value, column: BoardColumn) {
+    if (value !== column.name) {
+      let oldName = column.name;
+      column.name = value;
+
+      this.boardColumnService.updateBoardColumn(column).subscribe(
+        () => {},
+        () => column.name = oldName
+      );
+    }
+  }
+
   showDeleteIcon(event) {
     event.target.getElementsByClassName('delete-icon')[0].style.visibility = 'visible';
   }
