@@ -58,10 +58,7 @@ export class TokenStorageService {
   }
 
   getId() {
-    let jwtData = this.getToken().split('.')[1];
-    let decodedJwt = JSON.parse(atob(jwtData));
-
-    return decodedJwt.id;
+    return this.decodeJwt(this.getToken()).id;
   }
 
   saveAuthorities(authorities: string[]) {
@@ -77,6 +74,13 @@ export class TokenStorageService {
     });
 
     return roles;
+  }
+
+  private decodeJwt(jwt: string) {
+    let jwtData = jwt.split('.')[1];
+    let decodedJwt = JSON.parse(atob(jwtData));
+
+    return decodedJwt;
   }
 
 }
