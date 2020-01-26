@@ -28,6 +28,8 @@ import {UserService} from './services/user.service';
 import { MenuDialogComponent } from './components/dialogs/menu-dialog/menu-dialog.component';
 import { Oauth2Component } from './components/oauth2/oauth2.component';
 import { RowFeedDialogComponent } from './components/dialogs/row-feed-dialog/row-feed-dialog.component';
+import {WebsocketService} from './websocket/websocket.service';
+import {RowMessageService} from './services/row-message.service';
 
 @NgModule({
   declarations: [
@@ -55,6 +57,7 @@ import { RowFeedDialogComponent } from './components/dialogs/row-feed-dialog/row
   providers: [
     TokenStorageService,
     AuthService,
+    WebsocketService,
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
     AuthGuard,
@@ -62,7 +65,8 @@ import { RowFeedDialogComponent } from './components/dialogs/row-feed-dialog/row
     BoardService,
     BoardColumnService,
     RowService,
-    UserService
+    UserService,
+    RowMessageService
   ],
   entryComponents: [
     AddRowDialogComponent,
