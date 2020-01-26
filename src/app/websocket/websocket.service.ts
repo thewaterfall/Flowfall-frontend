@@ -11,10 +11,11 @@ export class WebsocketService {
   private stompClient: Client;
 
   constructor(private tokenStorage: TokenStorageService) {
-    this.stompClient = new Client();
+
   }
 
   initWebSocketConnection(url, onMessageReceived: (message: WebSocketRowMessage) => any) {
+    this.stompClient = new Client();
     this.stompClient.webSocketFactory = () =>  new SockJS(`${environment.api_url}/webSocket`);
 
     this.stompClient.onConnect = () => this.onConnected(url, onMessageReceived);
