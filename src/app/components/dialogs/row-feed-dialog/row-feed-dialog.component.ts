@@ -1,8 +1,14 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {Row} from "../../../models/Row";
-import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
-import {RowService} from "../../../services/row.service";
-import {Board} from "../../../models/Board";
+import {Row} from '../../../models/Row';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import {RowService} from '../../../services/row.service';
+
+import {RowMessage} from '../../../models/RowMessage';
+import {WebSocketRowMessage} from '../../../websocket/WebSocketRowMessage';
+import {TokenStorageService} from '../../../auth/services/token-storage.service';
+import {User} from '../../../models/User';
+import {WebsocketService} from '../../../websocket/websocket.service';
+import {RowMessageService} from '../../../services/row-message.service';
 
 enum FieldMode {
   EDIT = 'edit', VIEW = 'view'
@@ -19,9 +25,20 @@ export class RowFeedDialogComponent implements OnInit {
   nameFieldMode = FieldMode.VIEW;
   contentFieldMode = FieldMode.VIEW;
 
+  messages: RowMessage[] = [];
+
   constructor(public dialogRef: MatDialogRef<RowFeedDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: Row,
-              private rowService: RowService) {
+              private rowService: RowService, private tokenStorage: TokenStorageService,
+              private websocketService: WebsocketService, private rowMessageService: RowMessageService) {
     this.row = data;
+
+    this.rowMessageService.getRowMessagesByRowId(this.row.id).subscribe(
+      rowMessages => this.messages = rowMessages
+    );
+
+    this.websocketService.initWebSocketConnection(this.row.id, (message) => {
+      this.onWebSocketMessageReceived(message);
+    });
   }
 
   ngOnInit() {
@@ -98,4 +115,25 @@ export class RowFeedDialogComponent implements OnInit {
   }
 
 
+  onWebSocketMessageReceived(message: WebSocketRowMessage) {
+    this.messages.unshift(message.message);
+  }
+
+  sendMessageUsingSocket(messageInput) {
+    this.websocketService.sendMessage(this.row.id, this.createWebSocketMessage(messageInput.value));
+    messageInput.value = '';
+  }
+
+  createWebSocketMessage(message: string): WebSocketRowMessage {
+    let rowMessage = new RowMessage();
+    rowMessage.row = this.row;
+    rowMessage.sender = new User(parseInt(this.tokenStorage.getId()));
+    rowMessage.text = message;
+
+    let webSocketRowMessage = new WebSocketRowMessage();
+    webSocketRowMessage.type = 'send';
+    webSocketRowMessage.message = rowMessage;
+
+    return webSocketRowMessage;
+  }
 }

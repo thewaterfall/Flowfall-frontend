@@ -1,5 +1,5 @@
 <div class="rowfeed-wrapper" fxLayout="column" fxLayoutGap="20px">
-  <div class="rowfeed-name" fxLayoutAlign="start center" fxLayoutGap="5px">
+  <div class="rowfeed-name styled-input" fxLayoutAlign="start center" fxLayoutGap="5px">
     <div class="material-icons">title</div>
     <div *ngIf="nameFieldMode === 'view'"
          fxLayout="row">
@@ -13,7 +13,7 @@
     </div>
   </div>
 
-  <div class="rowfeed-content">
+  <div class="rowfeed-content styled-input">
     <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
       <div class="material-icons">description</div>
       <div>Row content</div>
@@ -35,6 +35,33 @@
         </mat-form-field>
       </div>
     </div>
+  </div>
+
+  <div class="rowfeed-feed">
+    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
+      <div class="material-icons">message</div>
+      <div>Feed</div>
+    </div>
+
+    <div class="content-field">
+      <mat-form-field style="width: 100%">
+        <textarea #messageInput matInput cdkTextareaAutosize placeholder="Comment"></textarea>
+      </mat-form-field>
+
+      <button mat-raised-button (click)="sendMessageUsingSocket(messageInput)">Add message</button>
+
+
+      <div class="comment-wrapper"
+           fxLayout="column" fxLayoutGap="10px">
+
+        <div *ngFor="let msg of messages">
+          <div class="comment-header">{{msg.sender.email}}</div>
+          <div class="comment-container">{{msg.text}}</div>
+        </div>
+
+      </div>
+    </div>
+
   </div>
 
 </div>
