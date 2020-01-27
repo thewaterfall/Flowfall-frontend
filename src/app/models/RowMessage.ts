@@ -6,4 +6,5 @@ export class RowMessage {
   public row: Row;
   public sender: User;
   public text: string;
+  public created: Date;
 }
