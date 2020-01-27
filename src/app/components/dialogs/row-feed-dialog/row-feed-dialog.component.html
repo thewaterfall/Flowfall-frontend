@@ -55,7 +55,7 @@
            fxLayout="column" fxLayoutGap="10px">
 
         <div *ngFor="let msg of messages">
-          <div class="comment-header">{{msg.sender.email}}</div>
+          <div class="comment-header">{{msg.sender.email}} - {{msg.created | date: 'short'}}</div>
           <div class="comment-container">{{msg.text}}</div>
         </div>
 
