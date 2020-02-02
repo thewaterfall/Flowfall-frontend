@@ -55,7 +55,7 @@
            fxLayout="column" fxLayoutGap="10px">
 
         <div *ngFor="let msg of messages">
-          <div class="comment-wrapper" fxLayout="column">
+          <div [id]="msg.id" class="comment-wrapper animated bounceIn fast" fxLayout="column">
             <div class="comment-header">{{msg.sender.email}} - {{msg.created | date: 'short'}}</div>
             <div class="comment-container" fxLayout="row" fxLayoutAlign="start center">
               <div>{{msg.text}}</div>

@@ -129,7 +129,13 @@ export class RowFeedDialogComponent implements OnInit {
   }
 
   deleteComment(message: RowMessage) {
-    this.websocketService.deleteMessage(this.row.id, new WebSocketRowMessage('DELETE', message));
+    let comment = document.getElementById(String(message.id));
+
+    comment.classList.add('animated', 'bounceOut', 'fast');
+    comment.addEventListener('animationend', () => {
+      this.websocketService.deleteMessage(this.row.id, new WebSocketRowMessage('DELETE', message));
+    });
+
   }
 
   createWebSocketMessage(message: string): WebSocketRowMessage {
