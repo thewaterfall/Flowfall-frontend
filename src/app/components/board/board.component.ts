@@ -33,8 +33,6 @@ export class BoardComponent implements OnInit {
   connectedList: string[] = [];
   collaborators: User[] = [];
 
-  nameFieldMode: FieldMode = FieldMode.VIEW;
-
   isMouseDown = false;
   clickX;
   clickScrollLeft;
@@ -61,7 +59,7 @@ export class BoardComponent implements OnInit {
 
             this.userService.getOwnerByBoardId(this.currentBoard.id).subscribe(
               owner => this.isOwner = owner.id.toString() === tokenStorage.getId()
-            )
+            );
           },
           error => console.log(error)
         );
@@ -200,32 +198,27 @@ export class BoardComponent implements OnInit {
     );
   }
 
-  editBoardName(event) {
-    let name = event.target.value;
+  editBoardName(value) {
+    if (value !== this.currentBoard.name) {
+      let oldName = this.currentBoard.name;
+      this.currentBoard.name = value;
 
-    if (name !== this.currentBoard.name) {
-
-     this.boardService.updateBoard(new Board(this.currentBoard.id, name)).subscribe(
-        data => this.currentBoard.name = name,
-        error => console.log(error)
+      this.boardService.updateBoard(this.currentBoard).subscribe(
+        () => {},
+        () => this.currentBoard.name = oldName
       );
     }
-
-    this.switchNameFieldMode();
   }
 
-  switchNameFieldMode() {
-    if (this.nameFieldMode === FieldMode.VIEW) {
-      this.nameFieldMode = FieldMode.EDIT;
+  editColumnName(value, column: BoardColumn) {
+    if (value !== column.name) {
+      let oldName = column.name;
+      column.name = value;
 
-      setTimeout(f => {
-        let boardnameInput = document.getElementById('boardnameInput');
-        boardnameInput.focus();
-        // @ts-ignore
-        boardnameInput.select();
-      }, 100);
-    } else {
-      this.nameFieldMode = FieldMode.VIEW;
+      this.boardColumnService.updateBoardColumn(column).subscribe(
+        () => {},
+        () => column.name = oldName
+      );
     }
   }
 

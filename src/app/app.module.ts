@@ -31,6 +31,7 @@ import { RowFeedDialogComponent } from './components/dialogs/row-feed-dialog/row
 import {WebsocketService} from './websocket/websocket.service';
 import {RowMessageService} from './services/row-message.service';
 import { ConfirmationDialogComponent } from './components/dialogs/confirmation-dialog/confirmation-dialog.component';
+import { MultiModeInputComponent } from './components/multi-mode-input/multi-mode-input.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { ConfirmationDialogComponent } from './components/dialogs/confirmation-d
     AddBoardDialogComponent,
     MenuDialogComponent,
     Oauth2Component,
+    MultiModeInputComponent,
     RowFeedDialogComponent,
     ConfirmationDialogComponent
   ],

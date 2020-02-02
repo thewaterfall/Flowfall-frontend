@@ -1,0 +1,40 @@
+.multi-mode-input-wrapper {
+  ::ng-deep .mat-form-field-appearance-legacy .mat-form-field-underline {
+    display: none !important;
+  }
+
+  ::ng-deep  .mat-form-field-appearance-legacy .mat-form-field-wrapper {
+    padding-bottom: 0 !important;
+  }
+
+  ::ng-deep .mat-form-field-infix {
+    padding: 0 !important;
+    border: none;
+  }
+
+  ::ng-deep .mat-form-field-appearance-legacy .mat-form-field-label {
+    font-size: 16px;
+    margin: 7px !important;
+  }
+
+  ::ng-deep .mat-form-field-appearance-legacy.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label {
+    display: none;
+  }
+}
+
+.edit-mode {
+  .form-field-input {
+    font-size: 16px;
+    font-weight: lighter;
+  }
+
+  .edit-mode-input {
+    background-color: #c8cad1;
+    border-radius: 5px;
+    padding: 4px;
+  }
+}
+
+.view-mode {
+
+}
