@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, HostListener, Input, OnInit, Output} from '@angular/core';
 
 enum InputMode {
   VIEW = 'view', EDIT = 'edit'
@@ -17,6 +17,11 @@ export class MultiModeInputComponent implements OnInit {
   @Input() value: string;
 
   @Output() valueChanged = new EventEmitter();
+
+  @HostListener('document:keypress', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+    this.handleKeyPress(event);
+  }
 
   constructor() { }
 
@@ -41,6 +46,20 @@ export class MultiModeInputComponent implements OnInit {
     } else {
       this.inputMode = InputMode.VIEW;
     }
-
   }
+
+  /**
+   * Pressing Enter will submit input value
+   * Pressing Shift + Enter will move caret to the next line
+   */
+  handleKeyPress(event) {
+    if (this.inputMode === InputMode.EDIT) {
+      if (event.shiftKey && event.key === 'Enter') {
+        this.value += '\n';
+      } else if (!event.shiftKey && event.key === 'Enter') {
+        this.changeValue();
+      }
+    }
+  }
+
 }
