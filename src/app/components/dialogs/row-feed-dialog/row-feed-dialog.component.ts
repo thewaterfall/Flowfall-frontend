@@ -11,10 +11,6 @@ import {WebsocketService} from '../../../websocket/websocket.service';
 import {RowMessageService} from '../../../services/row-message.service';
 import {ConfirmationDialogComponent} from '../confirmation-dialog/confirmation-dialog.component';
 
-enum FieldMode {
-  EDIT = 'edit', VIEW = 'view'
-}
-
 @Component({
   selector: 'app-row-feed-dialog',
   templateUrl: './row-feed-dialog.component.html',
@@ -23,8 +19,6 @@ enum FieldMode {
 export class RowFeedDialogComponent implements OnInit {
 
   row: Row = new Row();
-  nameFieldMode = FieldMode.VIEW;
-  contentFieldMode = FieldMode.VIEW;
 
   messages: RowMessage[] = [];
 
@@ -52,21 +46,6 @@ export class RowFeedDialogComponent implements OnInit {
 
   close() {
     this.dialogRef.close();
-  }
-
-  switchNameFieldMode() {
-    if (this.nameFieldMode === FieldMode.VIEW) {
-      this.nameFieldMode = FieldMode.EDIT;
-
-      setTimeout(f => {
-        let rowNameInput = document.getElementById('rowNameInput');
-        rowNameInput.focus();
-        // @ts-ignore
-        rowNameInput.select();
-      }, 100);
-    } else {
-      this.nameFieldMode = FieldMode.VIEW;
-    }
   }
 
   editRowName(value) {
@@ -126,6 +105,19 @@ export class RowFeedDialogComponent implements OnInit {
     });
   }
 
+  editComment(value, msg: RowMessage) {
+    let oldComment = msg.text;
+
+    if (value !== oldComment) {
+      msg.text = value;
+
+      this.rowMessageService.update(msg).subscribe(
+        () => {},
+        error => msg.text = oldComment
+      );
+    }
+  }
+
   createWebSocketMessage(message: string): WebSocketRowMessage {
     let rowMessage = new RowMessage();
     rowMessage.row = this.row;
@@ -134,5 +126,4 @@ export class RowFeedDialogComponent implements OnInit {
 
     return new WebSocketRowMessage('SEND', rowMessage);
   }
-
 }

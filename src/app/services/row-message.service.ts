@@ -18,4 +18,8 @@ export class RowMessageService {
   deleteRowMessage(id: number): Observable<any> {
     return this.http.delete(`${this.BASE_URL}/${id}`);
   }
+
+  update(msg: RowMessage): Observable<any> {
+    return this.http.put(`${this.BASE_URL}`, msg);
+  }
 }

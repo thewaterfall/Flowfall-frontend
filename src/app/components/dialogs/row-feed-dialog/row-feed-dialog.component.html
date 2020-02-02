@@ -40,7 +40,8 @@
           <div [id]="msg.id" class="comment-wrapper animated bounceIn fast" fxLayout="column">
             <div class="comment-header">{{msg.sender.email}} - {{msg.created | date: 'short'}}</div>
             <div class="comment-container" fxLayout="row" fxLayoutAlign="start center">
-              <div>{{msg.text}}</div>
+              <multi-mode-input [value]="msg.text" [minWidthStyle]="'100%'" [textArea]="true"
+                                (valueChanged)="editComment($event, msg)">></multi-mode-input>
               <div class="material-icons delete-icon" (click)="deleteComment(msg)">delete</div>
             </div>
 
