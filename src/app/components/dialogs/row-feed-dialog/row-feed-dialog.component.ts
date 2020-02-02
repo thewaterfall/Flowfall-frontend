@@ -69,51 +69,30 @@ export class RowFeedDialogComponent implements OnInit {
     }
   }
 
-  editRowName(event) {
-    let name = event.target.value;
+  editRowName(value) {
     let oldName = this.row.name;
 
-    if (name !== oldName) {
-      this.row.name = name;
+    if (value !== oldName) {
+      this.row.name = value;
 
       this.rowService.updateRow(this.row).subscribe(
         () => {},
         error => this.row.name = oldName
       );
     }
-
-    this.switchNameFieldMode();
   }
 
-  switchContentFieldMode() {
-    if (this.contentFieldMode === FieldMode.VIEW) {
-      this.contentFieldMode = FieldMode.EDIT;
-
-      setTimeout(f => {
-        let rowContentInput = document.getElementById('rowContentInput');
-        rowContentInput.focus();
-        // @ts-ignore
-        rowContentInput.select();
-      }, 100);
-    } else {
-      this.contentFieldMode = FieldMode.VIEW;
-    }
-  }
-
-  editRowContent(event) {
-    let content = event.target.value;
+  editRowContent(value) {
     let oldContent = this.row.content;
 
-    if (content !== oldContent) {
-      this.row.content = content;
+    if (value !== oldContent) {
+      this.row.content = value;
 
       this.rowService.updateRow(this.row).subscribe(
         () => {},
         error => this.row.content = oldContent
       );
     }
-
-    this.switchContentFieldMode();
   }
 
 

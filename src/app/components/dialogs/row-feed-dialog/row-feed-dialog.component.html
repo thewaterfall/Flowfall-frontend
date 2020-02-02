@@ -1,16 +1,9 @@
 <div class="rowfeed-wrapper" fxLayout="column" fxLayoutGap="20px">
-  <div class="rowfeed-name styled-input" fxLayoutAlign="start center" fxLayoutGap="5px">
+  <div class="rowfeed-name" fxLayoutAlign="start center" fxLayoutGap="5px">
     <div class="material-icons">title</div>
-    <div *ngIf="nameFieldMode === 'view'"
-         fxLayout="row">
-      <div (click)="switchNameFieldMode()">{{row.name}}</div>
-    </div>
-
-    <div *ngIf="nameFieldMode === 'edit'">
-      <mat-form-field class="form-field-input">
-        <input id="rowNameInput" class="title-input" matInput placeholder="Row name" (blur)="editRowName($event)" [value]="row.name"/>
-      </mat-form-field>
-    </div>
+    <multi-mode-input [value]="row.name" [minWidthStyle]="'220px'"
+                      (valueChanged)="editRowName($event)">
+    </multi-mode-input>
   </div>
 
   <div class="rowfeed-content styled-input">
@@ -20,20 +13,9 @@
     </div>
 
     <div class="content-field">
-      <div *ngIf="contentFieldMode === 'view'"
-           fxLayout="row" fxLayoutAlign="start center">
-        <div (click)="switchContentFieldMode()">{{row.content}}</div>
-        <div *ngIf="row.content === null || row.content.length === 0" (click)="switchContentFieldMode()">Add any content</div>
-      </div>
-
-      <div *ngIf="contentFieldMode === 'edit'">
-        <mat-form-field class="form-field-input">
-        <textarea id="rowContentInput" class="title-input" matInput cdkTextareaAutosize placeholder="Row content"
-                  (blur)="editRowContent($event)" [value]="row.content">
-
-        </textarea>
-        </mat-form-field>
-      </div>
+        <multi-mode-input [value]="row.content" [minWidthStyle]="'100%'" [textArea]="true"
+                          (valueChanged)="editRowContent($event)">
+        </multi-mode-input>
     </div>
   </div>
 
