@@ -57,9 +57,16 @@
 .comment-container {
   background-color: #EBECF0;
   padding: 10px;
-  //border: 1px solid #c8cad1;
   border-radius: 3px;
 
   font-weight: lighter;
   white-space: pre
+}
+
+.delete-icon {
+  margin-left: auto;
+  margin-bottom: auto;
+  cursor: pointer;
+
+  font-size: 20px;
 }

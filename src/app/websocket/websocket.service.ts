@@ -30,6 +30,13 @@ export class WebsocketService {
       });
   }
 
+  deleteMessage(url, message) {
+    this.stompClient.publish({
+      destination: `/message/delete/${url}`,
+      body: JSON.stringify(message)
+    });
+  }
+
   private onConnected(url, onMessageReceived) {
     this.stompClient.subscribe(`/message/${url}`, (message) => {
       onMessageReceived(JSON.parse(message.body));

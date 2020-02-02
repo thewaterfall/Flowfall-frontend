@@ -48,15 +48,21 @@
         <textarea #messageInput matInput cdkTextareaAutosize placeholder="Comment"></textarea>
       </mat-form-field>
 
-      <button mat-raised-button (click)="sendMessageUsingSocket(messageInput)">Add message</button>
+      <button mat-raised-button (click)="addComment(messageInput)">Add message</button>
 
 
       <div class="comment-wrapper"
            fxLayout="column" fxLayoutGap="10px">
 
         <div *ngFor="let msg of messages">
-          <div class="comment-header">{{msg.sender.email}} - {{msg.created | date: 'short'}}</div>
-          <div class="comment-container">{{msg.text}}</div>
+          <div class="comment-wrapper" fxLayout="column">
+            <div class="comment-header">{{msg.sender.email}} - {{msg.created | date: 'short'}}</div>
+            <div class="comment-container" fxLayout="row" fxLayoutAlign="start center">
+              <div>{{msg.text}}</div>
+              <div class="material-icons delete-icon" (click)="deleteComment(msg)">delete</div>
+            </div>
+
+          </div>
         </div>
 
       </div>

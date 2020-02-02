@@ -116,12 +116,20 @@ export class RowFeedDialogComponent implements OnInit {
 
 
   onWebSocketMessageReceived(message: WebSocketRowMessage) {
-    this.messages.unshift(message.message);
+    if (message.type === 'SEND') {
+      this.messages.unshift(message.message);
+    } else if (message.type === 'DELETE') {
+      this.messages = this.messages.filter(msg => msg.id !== message.message.id);
+    }
   }
 
-  sendMessageUsingSocket(messageInput) {
+  addComment(messageInput) {
     this.websocketService.sendMessage(this.row.id, this.createWebSocketMessage(messageInput.value));
     messageInput.value = '';
+  }
+
+  deleteComment(message: RowMessage) {
+    this.websocketService.deleteMessage(this.row.id, new WebSocketRowMessage('DELETE', message));
   }
 
   createWebSocketMessage(message: string): WebSocketRowMessage {
@@ -130,10 +138,7 @@ export class RowFeedDialogComponent implements OnInit {
     rowMessage.sender = new User(parseInt(this.tokenStorage.getId()));
     rowMessage.text = message;
 
-    let webSocketRowMessage = new WebSocketRowMessage();
-    webSocketRowMessage.type = 'send';
-    webSocketRowMessage.message = rowMessage;
-
-    return webSocketRowMessage;
+    return new WebSocketRowMessage('SEND', rowMessage);
   }
+
 }
