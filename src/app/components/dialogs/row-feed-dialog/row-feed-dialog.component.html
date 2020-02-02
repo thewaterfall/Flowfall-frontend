@@ -1,15 +1,15 @@
 <div class="rowfeed-wrapper" fxLayout="column" fxLayoutGap="20px">
   <div class="rowfeed-name" fxLayoutAlign="start center" fxLayoutGap="5px">
     <div class="material-icons">title</div>
-    <multi-mode-input style="width: 100%" [value]="row.name" [minWidthStyle]="'100%'"
+    <multi-mode-input class="bold" style="width: 100%" [value]="row.name" [minWidthStyle]="'100%'"
                       (valueChanged)="editRowName($event)">
     </multi-mode-input>
   </div>
 
-  <div class="rowfeed-content styled-input">
+  <div class="rowfeed-content">
     <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
       <div class="material-icons">description</div>
-      <div>Row content</div>
+      <div class="bold">Row content</div>
     </div>
 
     <div class="content-field">
@@ -22,7 +22,7 @@
   <div class="rowfeed-feed">
     <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
       <div class="material-icons">message</div>
-      <div>Feed</div>
+      <div class="bold">Feed</div>
     </div>
 
     <div class="content-field">
