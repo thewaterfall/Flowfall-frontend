@@ -1,7 +1,7 @@
 <div class="rowfeed-wrapper" fxLayout="column" fxLayoutGap="20px">
   <div class="rowfeed-name" fxLayoutAlign="start center" fxLayoutGap="5px">
     <div class="material-icons">title</div>
-    <multi-mode-input [value]="row.name" [minWidthStyle]="'220px'"
+    <multi-mode-input style="width: 100%" [value]="row.name" [minWidthStyle]="'100%'"
                       (valueChanged)="editRowName($event)">
     </multi-mode-input>
   </div>
@@ -40,8 +40,9 @@
           <div [id]="msg.id" class="comment-wrapper animated bounceIn fast" fxLayout="column">
             <div class="comment-header">{{msg.sender.email}} - {{msg.created | date: 'short'}}</div>
             <div class="comment-container" fxLayout="row" fxLayoutAlign="start center">
-              <multi-mode-input [value]="msg.text" [minWidthStyle]="'100%'" [textArea]="true"
-                                (valueChanged)="editComment($event, msg)">></multi-mode-input>
+              <multi-mode-input style="width: 95%" [value]="msg.text" [minWidthStyle]="'100%'" [textArea]="true"
+                                (valueChanged)="editComment($event, msg)">
+              </multi-mode-input>
               <div class="material-icons delete-icon" (click)="deleteComment(msg)">delete</div>
             </div>
 
