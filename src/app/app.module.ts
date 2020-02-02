@@ -30,6 +30,7 @@ import { Oauth2Component } from './components/oauth2/oauth2.component';
 import { RowFeedDialogComponent } from './components/dialogs/row-feed-dialog/row-feed-dialog.component';
 import {WebsocketService} from './websocket/websocket.service';
 import {RowMessageService} from './services/row-message.service';
+import { ConfirmationDialogComponent } from './components/dialogs/confirmation-dialog/confirmation-dialog.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import {RowMessageService} from './services/row-message.service';
     AddBoardDialogComponent,
     MenuDialogComponent,
     Oauth2Component,
-    RowFeedDialogComponent
+    RowFeedDialogComponent,
+    ConfirmationDialogComponent
   ],
   imports: [
     MaterialModule,
@@ -69,6 +71,7 @@ import {RowMessageService} from './services/row-message.service';
     RowMessageService
   ],
   entryComponents: [
+    ConfirmationDialogComponent,
     AddRowDialogComponent,
     AddColumnDialogComponent,
     AddBoardDialogComponent,

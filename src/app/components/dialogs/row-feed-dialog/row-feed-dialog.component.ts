@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {Row} from '../../../models/Row';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
 import {RowService} from '../../../services/row.service';
 
 import {RowMessage} from '../../../models/RowMessage';
@@ -9,6 +9,7 @@ import {TokenStorageService} from '../../../auth/services/token-storage.service'
 import {User} from '../../../models/User';
 import {WebsocketService} from '../../../websocket/websocket.service';
 import {RowMessageService} from '../../../services/row-message.service';
+import {ConfirmationDialogComponent} from '../confirmation-dialog/confirmation-dialog.component';
 
 enum FieldMode {
   EDIT = 'edit', VIEW = 'view'
@@ -29,7 +30,8 @@ export class RowFeedDialogComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<RowFeedDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: Row,
               private rowService: RowService, private tokenStorage: TokenStorageService,
-              private websocketService: WebsocketService, private rowMessageService: RowMessageService) {
+              private websocketService: WebsocketService, private rowMessageService: RowMessageService,
+              private dialog: MatDialog) {
     this.row = data;
 
     this.rowMessageService.getRowMessagesByRowId(this.row.id).subscribe(
@@ -129,13 +131,20 @@ export class RowFeedDialogComponent implements OnInit {
   }
 
   deleteComment(message: RowMessage) {
-    let comment = document.getElementById(String(message.id));
-
-    comment.classList.add('animated', 'bounceOut', 'fast');
-    comment.addEventListener('animationend', () => {
-      this.websocketService.deleteMessage(this.row.id, new WebSocketRowMessage('DELETE', message));
+    let confirmRef = this.dialog.open(ConfirmationDialogComponent, {
+      data: 'Are you sure you want to delete comment?'
     });
 
+    confirmRef.afterClosed().subscribe(confirm => {
+      if (confirm) {
+        let comment = document.getElementById(String(message.id));
+
+        comment.classList.add('animated', 'bounceOut', 'fast');
+        comment.addEventListener('animationend', () => {
+          this.websocketService.deleteMessage(this.row.id, new WebSocketRowMessage('DELETE', message));
+        });
+      }
+    });
   }
 
   createWebSocketMessage(message: string): WebSocketRowMessage {

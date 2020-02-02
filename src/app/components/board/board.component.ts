@@ -176,7 +176,7 @@ export class BoardComponent implements OnInit {
       data: row,
       width: '50vw',
       height: '90vh'
-    })
+    });
   }
 
   deleteRow(column: BoardColumn, row: Row) {
