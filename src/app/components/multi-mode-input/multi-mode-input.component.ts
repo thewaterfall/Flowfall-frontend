@@ -15,6 +15,7 @@ export class MultiModeInputComponent implements OnInit {
   @Input() textArea: boolean = false;
   @Input() minWidthStyle: string = '140px';
   @Input() value: string;
+  @Input() canActivate: boolean = true;
 
   @Output() valueChanged = new EventEmitter();
 
