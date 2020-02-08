@@ -40,10 +40,13 @@
           <div [id]="msg.id" class="comment-wrapper animated bounceIn fast" fxLayout="column">
             <div class="comment-header">{{msg.sender.email}} - {{msg.created | date: 'short'}}</div>
             <div class="comment-container" fxLayout="row" fxLayoutAlign="start center">
-              <multi-mode-input class="comment-input" [value]="msg.text" [minWidthStyle]="'100%'" [textArea]="true"
-                                (valueChanged)="editComment($event, msg)">
+              <multi-mode-input class="comment-input" [canActivate]="isCommentOwner(msg)" [value]="msg.text" [minWidthStyle]="'100%'"
+                                [textArea]="true" (valueChanged)="editComment($event, msg)">
               </multi-mode-input>
-              <div class="material-icons delete-icon" (click)="deleteComment(msg)">delete</div>
+
+              <div class="material-icons delete-icon" *ngIf="isCommentOwner(msg)" (click)="deleteComment(msg)">
+                delete
+              </div>
             </div>
 
           </div>

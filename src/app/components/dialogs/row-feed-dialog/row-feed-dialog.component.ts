@@ -126,4 +126,9 @@ export class RowFeedDialogComponent implements OnInit {
 
     return new WebSocketRowMessage('SEND', rowMessage);
   }
+
+  isCommentOwner(msg: RowMessage) {
+    console.log(msg.sender.id === this.tokenStorage.getId());
+    return msg.sender.id == this.tokenStorage.getId();
+  }
 }
