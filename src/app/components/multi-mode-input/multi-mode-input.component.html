@@ -1,7 +1,12 @@
 <div class="multi-mode-input-wrapper">
   <div class="view-mode" *ngIf="inputMode === 'view'"
        fxLayout="row" fxLayoutAlign="start center">
-    <div [style.min-width]="minWidthStyle" (click)="canActivate && switchInputMode()">{{value}}</div>
+    <div *ngIf="value != null && value.length > 0" [style.min-width]="minWidthStyle" (click)="canActivate && switchInputMode()">
+      {{value}}
+    </div>
+    <div *ngIf="value == null || value.length < 1" [style.min-width]="minWidthStyle" (click)="canActivate && switchInputMode()">
+      {{emptyMessage}}
+    </div>
   </div>
 
   <div class="edit-mode" *ngIf="inputMode === 'edit'">
