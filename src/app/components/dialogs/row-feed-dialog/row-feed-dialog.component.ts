@@ -128,7 +128,6 @@ export class RowFeedDialogComponent implements OnInit {
   }
 
   isCommentOwner(msg: RowMessage) {
-    console.log(msg.sender.id === this.tokenStorage.getId());
     return msg.sender.id == this.tokenStorage.getId();
   }
 }
