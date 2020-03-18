@@ -3,7 +3,7 @@
     <div class="board-name"
          (mouseenter)="isOwner && showDeleteIcon($event)" (mouseleave)="isOwner && hideDeleteIcon($event)"
           fxLayout="row" fxLayoutAlign="start center">
-      <multi-mode-input [value]="currentBoard.name" [minWidthStyle]="'220px'"
+      <multi-mode-input [value]="currentBoard.name" [minWidthStyle]="'220px'" [allowEmpty]="false"
                         (valueChanged)="editBoardName($event)">
       </multi-mode-input>
       <div class="material-icons delete-icon" *ngIf="isOwner" (click)="deleteBoard()">delete</div>
@@ -39,7 +39,8 @@
       <div class="column-title" (mouseenter)="showDeleteIcon($event)" (mouseleave)="hideDeleteIcon($event)"
            fxLayout="row" fxLayoutAlign="space-between center">
         <div class="column-title-content">
-          <multi-mode-input [value]="column.name" (valueChanged)="editColumnName($event, column)"></multi-mode-input>
+          <multi-mode-input [value]="column.name" [allowEmpty]="false" (valueChanged)="editColumnName($event, column)">
+          </multi-mode-input>
         </div>
         <div class="material-icons delete-icon" (click)="deleteColumn(column)"
              fxFlexAlign="center">

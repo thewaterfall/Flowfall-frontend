@@ -16,22 +16,38 @@ export class MultiModeInputComponent implements OnInit {
   @Input() minWidthStyle: string = '140px';
   @Input() value: string;
   @Input() emptyMessage: string = 'Click to enter text';
+  @Input() allowEmpty: boolean = true;
   @Input() canActivate: boolean = true;
 
   @Output() valueChanged = new EventEmitter();
+
+  originalValue;
 
   @HostListener('document:keypress', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
     this.handleKeyPress(event);
   }
 
-  constructor() { }
+  constructor() {
+
+  }
 
   ngOnInit() {
+    this.originalValue = this.value;
   }
 
   changeValue() {
-    this.valueChanged.emit(this.value);
+    if (this.value === '') {
+      if (this.allowEmpty) {
+        this.valueChanged.emit(this.value);
+      } else {
+        this.value = this.originalValue;
+        this.valueChanged.emit(this.originalValue);
+      }
+    } else {
+      this.valueChanged.emit(this.value);
+    }
+
     this.switchInputMode();
   }
 

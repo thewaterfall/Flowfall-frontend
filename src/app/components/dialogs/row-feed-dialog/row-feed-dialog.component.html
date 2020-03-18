@@ -1,7 +1,7 @@
 <div class="rowfeed-wrapper" fxLayout="column" fxLayoutGap="20px">
   <div class="rowfeed-name" fxLayoutAlign="start center" fxLayoutGap="5px">
     <div class="material-icons">title</div>
-    <multi-mode-input class="bold" style="width: 100%" [value]="row.name" [minWidthStyle]="'100%'"
+    <multi-mode-input class="bold" style="width: 100%" [value]="row.name" [minWidthStyle]="'100%'" [allowEmpty]="false"
                       (valueChanged)="editRowName($event)">
     </multi-mode-input>
   </div>
