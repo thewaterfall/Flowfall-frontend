@@ -22,13 +22,13 @@ export class RowFeedDialogComponent implements OnInit {
 
   messages: RowMessage[] = [];
 
-  constructor(public dialogRef: MatDialogRef<RowFeedDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: Row,
+  constructor(public dialogRef: MatDialogRef<RowFeedDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: {row: Row, colId: number, boardId: number},
               private rowService: RowService, private tokenStorage: TokenStorageService,
               private websocketService: WebsocketService, private rowMessageService: RowMessageService,
               private dialog: MatDialog) {
-    this.row = data;
+    this.row = data.row;
 
-    this.rowMessageService.getRowMessagesByRowId(this.row.id).subscribe(
+    this.rowMessageService.getRowMessagesByRowId(this.data.boardId, this.data.colId, this.row.id).subscribe(
       rowMessages => this.messages = rowMessages
     );
 
@@ -54,7 +54,7 @@ export class RowFeedDialogComponent implements OnInit {
     if (value !== oldName) {
       this.row.name = value;
 
-      this.rowService.updateRow(this.row).subscribe(
+      this.rowService.updateRow(this.data.boardId, this.data.colId, this.row).subscribe(
         () => {},
         error => this.row.name = oldName
       );
@@ -67,7 +67,7 @@ export class RowFeedDialogComponent implements OnInit {
     if (value !== oldContent) {
       this.row.content = value;
 
-      this.rowService.updateRow(this.row).subscribe(
+      this.rowService.updateRow(this.data.boardId, this.data.colId, this.row).subscribe(
         () => {},
         error => this.row.content = oldContent
       );
@@ -84,6 +84,7 @@ export class RowFeedDialogComponent implements OnInit {
   }
 
   addComment(messageInput) {
+    // TODO: refactor URL
     this.websocketService.sendMessage(this.row.id, this.createWebSocketMessage(messageInput.value));
     messageInput.value = '';
   }
@@ -99,7 +100,9 @@ export class RowFeedDialogComponent implements OnInit {
 
         comment.classList.add('animated', 'bounceOut', 'fast');
         comment.addEventListener('animationend', () => {
+          // TODO: refactor URL
           this.websocketService.deleteMessage(this.row.id, new WebSocketRowMessage('DELETE', message));
+          this.messages = this.messages.filter(msg => msg.id !== message.id);
         });
       }
     });
@@ -111,7 +114,7 @@ export class RowFeedDialogComponent implements OnInit {
     if (value !== oldComment) {
       msg.text = value;
 
-      this.rowMessageService.update(msg).subscribe(
+      this.rowMessageService.update(this.data.boardId, this.data.colId, this.row.id, msg).subscribe(
         () => {},
         error => msg.text = oldComment
       );

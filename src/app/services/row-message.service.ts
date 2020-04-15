@@ -7,19 +7,19 @@ import {HttpClient} from '@angular/common/http';
 @Injectable()
 export class RowMessageService {
 
-  BASE_URL = `${environment.api_url}/rowMessages`;
+  BASE_URL = `${environment.api_url}/boards`;
 
   constructor(private http: HttpClient) { }
 
-  getRowMessagesByRowId(rowId: number): Observable<RowMessage[]> {
-    return this.http.get<RowMessage[]>(`${this.BASE_URL}/r/${rowId}`);
+  getRowMessagesByRowId(boardId: number, colId: number, rowId: number): Observable<RowMessage[]> {
+    return this.http.get<RowMessage[]>(`${this.BASE_URL}/${boardId}/columns/${colId}/rows/${rowId}/rowMessages`);
   }
 
-  deleteRowMessage(id: number): Observable<any> {
-    return this.http.delete(`${this.BASE_URL}/${id}`);
+  deleteRowMessage(boardId: number, colId: number, rowId: number, id: number): Observable<any> {
+    return this.http.delete(`${this.BASE_URL}/${boardId}/columns/${colId}/rows/${rowId}/rowMessages/${id}`);
   }
 
-  update(msg: RowMessage): Observable<any> {
-    return this.http.put(`${this.BASE_URL}`, msg);
+  update(boardId: number, colId: number, rowId: number, msg: RowMessage): Observable<any> {
+    return this.http.put(`${this.BASE_URL}/${boardId}/columns/${colId}/rows/${rowId}/rowMessages`, msg);
   }
 }

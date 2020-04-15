@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  api_url: 'http://localhost:8080',
-  oauth2_url: 'http://localhost:8080/oauth2/code'
+  api_url: 'http://localhost:8080/api/v1',
+  oauth2_url: 'http://localhost:8080/api/v1/oauth2/code'
 };
 
 /*

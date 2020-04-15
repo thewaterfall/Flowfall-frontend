@@ -32,6 +32,7 @@ import {WebsocketService} from './websocket/websocket.service';
 import {RowMessageService} from './services/row-message.service';
 import { ConfirmationDialogComponent } from './components/dialogs/confirmation-dialog/confirmation-dialog.component';
 import { MultiModeInputComponent } from './components/multi-mode-input/multi-mode-input.component';
+import {CollaboratorService} from './services/collaborator.service';
 
 @NgModule({
   declarations: [
@@ -70,7 +71,8 @@ import { MultiModeInputComponent } from './components/multi-mode-input/multi-mod
     BoardColumnService,
     RowService,
     UserService,
-    RowMessageService
+    RowMessageService,
+    CollaboratorService
   ],
   entryComponents: [
     ConfirmationDialogComponent,

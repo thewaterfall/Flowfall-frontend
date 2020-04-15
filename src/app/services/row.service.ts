@@ -7,20 +7,20 @@ import {Row} from '../models/Row';
 @Injectable()
 export class RowService {
 
-  BASE_URL = `${environment.api_url}/rows`;
+  BASE_URL = `${environment.api_url}/boards`;
 
   constructor(private http: HttpClient) {}
 
-  updateRow(row: Row): Observable<Row> {
-    return this.http.put<Row>(this.BASE_URL, row);
+  updateRow(boardId: number, colId: number, row: Row): Observable<Row> {
+    return this.http.put<Row>(`${this.BASE_URL}/${boardId}/columns/${colId}/rows`, row);
   }
 
-  addRow(row: Row): Observable<Row> {
-    return this.http.post<Row>(this.BASE_URL, row);
+  addRow(boardId: number, colId: number, row: Row): Observable<Row> {
+    return this.http.post<Row>(`${this.BASE_URL}/${boardId}/columns/${colId}/rows`, row);
   }
 
-  deleteRow(id: number): Observable<any> {
-    return this.http.delete(`${this.BASE_URL}/${id}`);
+  deleteRow(boardId: number, colId: number, id: number): Observable<any> {
+    return this.http.delete(`${this.BASE_URL}/${boardId}/columns/${colId}/rows/${id}`);
   }
 
 }

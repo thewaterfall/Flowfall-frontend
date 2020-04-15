@@ -54,7 +54,7 @@
            (cdkDropListDropped)="dropRow($event)"
            [cdkDropListConnectedTo]="connectedList"
            fxLayout="column" fxLayoutGap="5px">
-        <div class="row" cdkDrag *ngFor="let row of column.rows" (click)="openRowFeed(row)"
+        <div class="row" cdkDrag *ngFor="let row of column.rows" (click)="openRowFeed(row, column)"
              (mouseenter)="showDeleteIcon($event)" (mouseleave)="hideDeleteIcon($event)"
              fxLayout="row" fxLayoutAlign="space-between">
           <div class="row-content">{{row.name}}</div>

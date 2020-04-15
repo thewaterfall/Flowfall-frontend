@@ -10,12 +10,12 @@ export class BoardService {
 
   constructor(private http: HttpClient) {}
 
-  getBoardsByUserId(id: string): Observable<Board[]> {
-    return this.http.get<Board[]>(`${this.BASE_URL}/u/${id}`);
+  getBoards(): Observable<Board[]> {
+    return this.http.get<Board[]>(`${this.BASE_URL}`);
   }
 
-  getBoardsByCollaborator(id: string): Observable<Board[]> {
-    return this.http.get<Board[]>(`${this.BASE_URL}/u/${id}/collab`);
+  getCollaborativeBoards(): Observable<Board[]> {
+    return this.http.get<Board[]>(`${this.BASE_URL}/collab`);
   }
 
   getBoardById(id: string): Observable<Board> {
@@ -32,16 +32,6 @@ export class BoardService {
 
   deleteBoard(id: number): Observable<any> {
     return this.http.delete<any>(`${this.BASE_URL}/${id}`);
-  }
-
-  deleteCollaborator(collabId: number, boardId: number): Observable<any> {
-    return this.http.delete<any>(`${this.BASE_URL}/${boardId}/u/${collabId}`);
-  }
-
-  inviteCollaborator(boardId: number, collabEmail: string): Observable<any> {
-    let params = new HttpParams().set('collabEmail', collabEmail);
-
-    return this.http.post(`${this.BASE_URL}/${boardId}/invite`, null, {params: params});
   }
 
 }

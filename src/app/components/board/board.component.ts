@@ -14,7 +14,8 @@ import {User} from '../../models/User';
 import {UserService} from '../../services/user.service';
 import {MenuDialogComponent} from '../dialogs/menu-dialog/menu-dialog.component';
 import {TokenStorageService} from '../../auth/services/token-storage.service';
-import {RowFeedDialogComponent} from "../dialogs/row-feed-dialog/row-feed-dialog.component";
+import {RowFeedDialogComponent} from '../dialogs/row-feed-dialog/row-feed-dialog.component';
+import {CollaboratorService} from '../../services/collaborator.service';
 
 enum FieldMode {
   EDIT = 'edit', VIEW = 'view'
@@ -42,7 +43,8 @@ export class BoardComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private router: Router, private dialog: MatDialog,
               private boardService: BoardService, private boardColumnService: BoardColumnService, private rowService: RowService,
-              private userService: UserService, private tokenStorage: TokenStorageService) {
+              private userService: UserService, private collaboratorService: CollaboratorService,
+              private tokenStorage: TokenStorageService) {
     this.route.params.subscribe(
       params => {
         this.boardId = params['id'];
@@ -52,12 +54,12 @@ export class BoardComponent implements OnInit {
             this.currentBoard = data;
             this.fillConnectedList(data.boardColumns);
 
-            this.userService.getCollaboratorsByBoardId(this.currentBoard.id).subscribe(
+            this.collaboratorService.getCollaboratorsByBoardId(this.currentBoard.id).subscribe(
               collabs => this.collaborators = collabs,
               error => console.log(error)
             );
 
-            this.userService.getOwnerByBoardId(this.currentBoard.id).subscribe(
+            this.collaboratorService.getOwnerByBoardId(this.currentBoard.id).subscribe(
               owner => this.isOwner = owner.id.toString() === tokenStorage.getId()
             );
           },
@@ -120,9 +122,9 @@ export class BoardComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(data => {
       if (data !== undefined) {
-        this.boardColumnService.addBoardColumn(new BoardColumn(data.name,
-          this.currentBoard.boardColumns.length + 1,
-          this.currentBoard.id)).subscribe(
+        this.boardColumnService.addBoardColumn(this.currentBoard.id,
+          new BoardColumn(data.name, this.currentBoard.boardColumns.length + 1, this.currentBoard.id))
+          .subscribe(
           column => {
             this.currentBoard.boardColumns.push(column);
             this.connectedList.push(column.name);
@@ -140,7 +142,9 @@ export class BoardComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(data => {
       if (data !== undefined) {
-        this.rowService.addRow(new Row(data.name, column.rows.length + 1, column.id)).subscribe(
+        this.rowService.addRow(this.currentBoard.id, column.id,
+          new Row(data.name, column.rows.length + 1, column.id)
+        ).subscribe(
           row => column.rows.push(row),
           error => console.log(error)
         );
@@ -169,23 +173,23 @@ export class BoardComponent implements OnInit {
     }
   }
 
-  openRowFeed(row: Row) {
+  openRowFeed(row: Row, column: BoardColumn) {
     let dialogRef = this.dialog.open(RowFeedDialogComponent, {
-      data: row,
+      data: {row: row, colId: column.id, boardId: this.currentBoard.id},
       width: '50vw',
       height: '90vh'
     });
   }
 
   deleteRow(column: BoardColumn, row: Row) {
-    this.rowService.deleteRow(row.id).subscribe(
+    this.rowService.deleteRow(this.currentBoard.id, column.id, row.id).subscribe(
       () => column.rows = column.rows.filter(colRow => colRow !== row),
       error => console.log(error)
     );
   }
 
   deleteColumn(column: BoardColumn) {
-    this.boardColumnService.deleteBoardColumn(column.id).subscribe(
+    this.boardColumnService.deleteBoardColumn(this.currentBoard.id, column.id).subscribe(
       () => this.currentBoard.boardColumns = this.currentBoard.boardColumns.filter(col => col !== column),
       error => console.log(error)
     );
@@ -215,7 +219,7 @@ export class BoardComponent implements OnInit {
       let oldName = column.name;
       column.name = value;
 
-      this.boardColumnService.updateBoardColumn(column).subscribe(
+      this.boardColumnService.updateBoardColumn(this.currentBoard.id, column).subscribe(
         () => {},
         () => column.name = oldName
       );
@@ -232,7 +236,7 @@ export class BoardComponent implements OnInit {
 
   inviteCollab(event) {
     let collabEmail = event.value;
-    this.boardService.inviteCollaborator(this.currentBoard.id, collabEmail).subscribe(
+    this.collaboratorService.inviteCollaborator(this.currentBoard.id, collabEmail).subscribe(
       data => console.log('Invited'),
       error => console.log('Could not invite')
     );

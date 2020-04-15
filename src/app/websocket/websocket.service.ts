@@ -16,7 +16,11 @@ export class WebsocketService {
 
   initWebSocketConnection(url, onMessageReceived: (message: WebSocketRowMessage) => any) {
     this.stompClient = new Client();
-    this.stompClient.webSocketFactory = () =>  new SockJS(`${environment.api_url}/webSocket`);
+    this.stompClient.webSocketFactory = () => new SockJS(`${environment.api_url}/webSocket`);
+    this.stompClient.connectHeaders = {
+      Authorization: `Bearer ${this.tokenStorage.getToken()}`
+    };
+    this.stompClient.reconnectDelay = 5000;
 
     this.stompClient.onConnect = () => this.onConnected(url, onMessageReceived);
     this.stompClient.onStompError = () => this.onError();

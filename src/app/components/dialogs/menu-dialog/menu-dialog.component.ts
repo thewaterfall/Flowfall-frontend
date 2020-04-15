@@ -4,6 +4,7 @@ import {User} from '../../../models/User';
 import {UserService} from '../../../services/user.service';
 import {BoardService} from '../../../services/board.service';
 import {TokenStorageService} from '../../../auth/services/token-storage.service';
+import {CollaboratorService} from '../../../services/collaborator.service';
 
 @Component({
   selector: 'app-menu-dialog',
@@ -18,14 +19,14 @@ export class MenuDialogComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<MenuDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public boardId: number, private tokenStorage: TokenStorageService,
-    private userService: UserService, private boardService: BoardService) {
+    private userService: UserService, private boardService: BoardService, private collaboratorService: CollaboratorService) {
 
-    this.userService.getCollaboratorsByBoardId(boardId).subscribe(
+    this.collaboratorService.getCollaboratorsByBoardId(boardId).subscribe(
       data => this.collaborators = data,
       error => console.log(error)
     );
 
-    this.userService.getOwnerByBoardId(boardId).subscribe(
+    this.collaboratorService.getOwnerByBoardId(boardId).subscribe(
       data => this.owner = data,
       error => console.log(error)
     );
@@ -44,7 +45,7 @@ export class MenuDialogComponent implements OnInit {
   }
 
   deleteCollaborator(id: number) {
-    this.boardService.deleteCollaborator(id, this.boardId).subscribe(
+    this.collaboratorService.deleteCollaborator(id, this.boardId).subscribe(
       () => this.collaborators = this.collaborators.filter(collab => collab.id !== id)
     );
   }

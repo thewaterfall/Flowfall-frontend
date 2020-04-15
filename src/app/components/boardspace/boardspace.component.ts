@@ -21,14 +21,14 @@ export class BoardspaceComponent implements OnInit {
               private router: Router, private activatedRoute: ActivatedRoute, private dialog: MatDialog) { }
 
   ngOnInit() {
-    this.boardService.getBoardsByUserId(this.tokenStorage.getId()).subscribe(
+    this.boardService.getBoards().subscribe(
       data => {
         this.boards = data;
       },
       error => console.log(error)
     );
 
-    this.boardService.getBoardsByCollaborator(this.tokenStorage.getId()).subscribe(
+    this.boardService.getCollaborativeBoards().subscribe(
       data => {
         this.collabBoards = data;
       },
