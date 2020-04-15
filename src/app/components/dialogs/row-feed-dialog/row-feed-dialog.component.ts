@@ -84,7 +84,6 @@ export class RowFeedDialogComponent implements OnInit {
   }
 
   addComment(messageInput) {
-    // TODO: refactor URL
     this.websocketService.sendMessage(this.row.id, this.createWebSocketMessage(messageInput.value));
     messageInput.value = '';
   }
@@ -100,7 +99,6 @@ export class RowFeedDialogComponent implements OnInit {
 
         comment.classList.add('animated', 'bounceOut', 'fast');
         comment.addEventListener('animationend', () => {
-          // TODO: refactor URL
           this.websocketService.deleteMessage(this.row.id, new WebSocketRowMessage('DELETE', message));
           this.messages = this.messages.filter(msg => msg.id !== message.id);
         });
