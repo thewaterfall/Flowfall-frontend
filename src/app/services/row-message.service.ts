@@ -12,14 +12,14 @@ export class RowMessageService {
   constructor(private http: HttpClient) { }
 
   getRowMessagesByRowId(boardId: number, colId: number, rowId: number): Observable<RowMessage[]> {
-    return this.http.get<RowMessage[]>(`${this.BASE_URL}/${boardId}/columns/${colId}/rows/${rowId}/rowMessages`);
+    return this.http.get<RowMessage[]>(`${this.BASE_URL}/${boardId}/columns/${colId}/rows/${rowId}/messages`);
   }
 
   deleteRowMessage(boardId: number, colId: number, rowId: number, id: number): Observable<any> {
-    return this.http.delete(`${this.BASE_URL}/${boardId}/columns/${colId}/rows/${rowId}/rowMessages/${id}`);
+    return this.http.delete(`${this.BASE_URL}/${boardId}/columns/${colId}/rows/${rowId}/messages/${id}`);
   }
 
   update(boardId: number, colId: number, rowId: number, msg: RowMessage): Observable<any> {
-    return this.http.put(`${this.BASE_URL}/${boardId}/columns/${colId}/rows/${rowId}/rowMessages`, msg);
+    return this.http.put(`${this.BASE_URL}/${boardId}/columns/${colId}/rows/${rowId}/messages`, msg);
   }
 }
