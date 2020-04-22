@@ -33,6 +33,7 @@ import {RowMessageService} from './services/row-message.service';
 import { ConfirmationDialogComponent } from './components/dialogs/confirmation-dialog/confirmation-dialog.component';
 import { MultiModeInputComponent } from './components/multi-mode-input/multi-mode-input.component';
 import {CollaboratorService} from './services/collaborator.service';
+import {ResponseService} from './services/response.service';
 
 @NgModule({
   declarations: [
@@ -73,7 +74,8 @@ import {CollaboratorService} from './services/collaborator.service';
     RowService,
     UserService,
     RowMessageService,
-    CollaboratorService
+    CollaboratorService,
+    ResponseService
   ],
   entryComponents: [
     ConfirmationDialogComponent,

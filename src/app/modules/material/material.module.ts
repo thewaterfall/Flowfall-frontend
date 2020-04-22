@@ -4,7 +4,7 @@ import {
   MatCardModule,
   MatDialogModule,
   MatInputModule,
-  MatProgressSpinnerModule,
+  MatProgressSpinnerModule, MatSnackBarModule,
   MatToolbarModule,
   MatTooltipModule
 } from '@angular/material';
@@ -20,7 +20,8 @@ let components = [
   MatInputModule,
   MatCardModule,
   MatTooltipModule,
-  MatProgressSpinnerModule
+  MatProgressSpinnerModule,
+  MatSnackBarModule
 ];
 
 @NgModule({

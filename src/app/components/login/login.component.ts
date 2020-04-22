@@ -1,16 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthService} from '../../auth/services/auth.service';
-import {User} from '../../models/User';
 import {TokenStorageService} from '../../auth/services/token-storage.service';
 import {environment} from '../../../environments/environment';
 import {FACEBOOK_PROVIDER, GOOGLE_PROVIDER, REDIRECT_URI} from '../../constants/OAuth2Constants';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {RegisterRequest} from '../../models/requests/RegisterRequest';
-import {ErrorResponseDto} from '../../models/dtos/ErrorResponseDto';
 import {PasswordMatch} from '../../validators/PasswordMatch';
-import {HttpErrorResponse} from '@angular/common/http';
 import {LoginRequest} from '../../models/requests/LoginRequest';
-import {Router} from '@angular/router';
+import {ResponseService} from '../../services/response.service';
+
 
 @Component({
   selector: 'app-login',
@@ -28,7 +26,8 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   loginMode: boolean = true;
 
-  constructor(private authService: AuthService, private tokenStorage: TokenStorageService, private formBuilder: FormBuilder) {
+  constructor(private authService: AuthService, private tokenStorage: TokenStorageService, private formBuilder: FormBuilder,
+              private responseService: ResponseService) {
     this.initializeLoginForm();
     this.initializeRegisterForm();
   }
@@ -93,12 +92,15 @@ export class LoginComponent implements OnInit {
 
     const loginRequest: LoginRequest = this.loginForm.value;
 
-    this.authService.authenticate(loginRequest).subscribe(data => {
-      if (data.enabled) {
-        this.tokenStorage.saveData(data);
-        window.location.reload();
-      }
-    });
+    this.authService.authenticate(loginRequest).subscribe(
+      data => {
+        if (data.enabled) {
+          this.tokenStorage.saveData(data);
+          window.location.reload();
+        }
+      },
+      error => this.responseService.handleMessage('Error occurred. Try again')
+    );
   }
 
   register() {
@@ -110,24 +112,10 @@ export class LoginComponent implements OnInit {
     registerRequest.redirectUri = environment.redirect_uri;
 
     this.authService.register(registerRequest).subscribe(
-      () => this.loginMode = true,
-        error => this.handleFieldErrors(error));
+      () => {
+        this.responseService.handleMessage('Confirmation is sent to the email');
+        this.loginMode = true;
+      },
+        error => this.responseService.handleFieldErrors(error, this.registerForm));
   }
-
-  private handleFieldErrors(error: HttpErrorResponse) {
-    if (error.status === 400) {
-      const errorResponse: ErrorResponseDto = error.error;
-      errorResponse.fieldErrors.forEach(fieldError => {
-
-        const formControl = this.registerForm.get(fieldError.field);
-        if (formControl) {
-          formControl.setErrors({
-            serverError: fieldError.message
-          });
-        }
-
-      });
-    }
-  }
-
 }
