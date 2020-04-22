@@ -16,7 +16,7 @@ import {AuthInterceptor} from './auth/interceptors/auth-interceptor';
 import {ErrorInterceptor} from './auth/interceptors/error-interceptor';
 import {LoginGuard} from './auth/guards/login.guard';
 import {AuthGuard} from './auth/guards/auth.guard';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {BoardService} from './services/board.service';
 import { AddRowDialogComponent } from './components/dialogs/add-row-dialog/add-row-dialog.component';
@@ -57,7 +57,8 @@ import {CollaboratorService} from './services/collaborator.service';
     BrowserAnimationsModule,
     HttpClientModule,
     FormsModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    ReactiveFormsModule
   ],
   providers: [
     TokenStorageService,

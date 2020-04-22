@@ -1,4 +1,4 @@
-<div class="login-wrapper" fxLayout="column" fxLayoutAlign="center center">
+<div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
 
 
   <div class="login-container" fxLayout="row" fxLayoutAlign="start center">
@@ -22,8 +22,7 @@
     </div>
 
     <div class="right-block" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="5px">
-
-     <div class="login-form" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="5px">
+     <div class="auth-form" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="5px">
        <div class="socials" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
          <div class="social-btn"
               (click)="navigateToProvider(FACEBOOK_PROVIDER_URL)"
@@ -40,15 +39,56 @@
          </div>
        </div>
 
-       <mat-form-field>
-         <input matInput placeholder="Email" [(ngModel)]="user.email"/>
-       </mat-form-field>
+       <form *ngIf="loginMode" [formGroup]="loginForm" (ngSubmit)="login()"
+             fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="5px">
+         <mat-form-field>
+           <input matInput formControlName="email" placeholder="Email"/>
+           <mat-error *ngIf="loginCtrls.email.errors?.required">Email is required</mat-error>
+         </mat-form-field>
 
-       <mat-form-field>
-         <input matInput placeholder="Password" type="password" [(ngModel)]="user.password"/>
-       </mat-form-field>
+         <mat-form-field>
+           <input matInput formControlName="password" placeholder="Password" type="password"/>
+           <mat-error *ngIf="loginCtrls.password.errors?.required">Password is required</mat-error>
+         </mat-form-field>
 
-       <button mat-raised-button color="primary" (click)="login()">Sign in</button>
+         <button mat-raised-button type="submit" color="primary">Sign in</button>
+         <div class="auth-text">
+           Don't have an account? <span class="auth-btn" (click)="switchForms()">Sign up</span>
+         </div>
+       </form>
+
+       <form *ngIf="!loginMode" [formGroup]="registerForm" (ngSubmit)="register()"
+             fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="5px">
+         <mat-form-field>
+           <input matInput formControlName="fullname" placeholder="Full name"/>
+           <mat-error *ngIf="registerCtrls.fullname.errors?.required">Full name is required</mat-error>
+         </mat-form-field>
+
+         <mat-form-field>
+           <input matInput formControlName="email" placeholder="Email"/>
+           <mat-error *ngIf="registerCtrls.email.errors?.email">Enter a valid email</mat-error>
+           <mat-error *ngIf="registerCtrls.email.errors?.required ">Email is required</mat-error>
+           <mat-error *ngIf="registerCtrls.email.errors?.serverError">{{registerCtrls.email.errors?.serverError}}</mat-error>
+         </mat-form-field>
+
+         <mat-form-field>
+           <input matInput formControlName="password" placeholder="Password" type="password"/>
+           <mat-error *ngIf="registerCtrls.password.errors?.required">Password is required</mat-error>
+         </mat-form-field>
+
+         <mat-form-field>
+           <input matInput formControlName="confirmPassword" placeholder="Confirm password" type="password"/>
+           <mat-error *ngIf="registerCtrls.confirmPassword.errors?.required">Password is required</mat-error>
+           <mat-error *ngIf="registerCtrls.confirmPassword.errors?.passwordMatch">Password should match</mat-error>
+         </mat-form-field>
+
+         <button mat-raised-button type="submit" color="primary">Sign up</button>
+
+         <div class="auth-text">
+           Have an account? <span class="auth-btn" (click)="switchForms()">Sign in</span>
+         </div>
+       </form>
+
      </div>
     </div>
 

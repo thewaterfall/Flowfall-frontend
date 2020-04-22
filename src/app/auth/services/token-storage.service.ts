@@ -1,12 +1,9 @@
 import { Injectable } from '@angular/core';
 import {JwtHelperService} from '@auth0/angular-jwt';
-import {Role} from '../../models/Role';
 import {JwtResponse} from '../JwtResponse';
 
 const TOKEN_KEY = 'AuthAccessToken';
 const EMAIL_KEY = 'AuthEmail';
-const ID_KEY = 'AuthId';
-const AUTHORITIES_KEY = 'AuthAuthorities';
 
 @Injectable()
 export class TokenStorageService {
@@ -22,7 +19,6 @@ export class TokenStorageService {
   saveData(data: JwtResponse) {
     this.saveToken(data.accessToken);
     this.saveEmail(data.email);
-    this.saveAuthorities(data.authorities);
   }
 
   isTokenValid(token: string) {
@@ -61,24 +57,9 @@ export class TokenStorageService {
     return this.decodeJwt(this.getToken()).id;
   }
 
-  saveAuthorities(authorities: string[]) {
-    window.localStorage.removeItem(AUTHORITIES_KEY);
-    window.localStorage.setItem(AUTHORITIES_KEY, JSON.stringify(authorities));
-  }
-
-  getAuthorities(): Role[] {
-    let roles: Role[] = [];
-
-    JSON.parse(window.localStorage.getItem(AUTHORITIES_KEY)).foreach(authority => {
-      roles.push(new Role(authority));
-    });
-
-    return roles;
-  }
-
   private decodeJwt(jwt: string) {
-    let jwtData = jwt.split('.')[1];
-    let decodedJwt = JSON.parse(atob(jwtData));
+    const jwtData = jwt.split('.')[1];
+    const decodedJwt = JSON.parse(atob(jwtData));
 
     return decodedJwt;
   }
