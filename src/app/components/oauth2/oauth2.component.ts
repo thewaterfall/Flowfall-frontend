@@ -16,18 +16,24 @@ export class Oauth2Component implements OnInit {
 
     this.route.queryParams.subscribe(
       params => {
-        if (params.error !== undefined) {
-          window.close();
-        } else {
-          const jwtResponse: JwtResponse = JSON.parse(atob(params.response));
-
-          this.tokenStorage.saveData(jwtResponse);
-          window.close();
+        if (params.response !== undefined) {
+          this.processResponse(params.response);
         }
+
+        window.close();
       });
   }
 
   ngOnInit() {
+
   }
 
+  processResponse(response: string) {
+    try {
+      const jwtResponse: JwtResponse = JSON.parse(atob(response));
+      this.tokenStorage.saveData(jwtResponse);
+    } catch {
+
+    }
+  }
 }
