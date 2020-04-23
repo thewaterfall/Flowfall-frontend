@@ -5,13 +5,15 @@ import {BoardspaceComponent} from './components/boardspace/boardspace.component'
 import {AuthGuard} from './auth/guards/auth.guard';
 import {LoginGuard} from './auth/guards/login.guard';
 import {BoardComponent} from './components/board/board.component';
-import {Oauth2Component} from "./components/oauth2/oauth2.component";
+import {Oauth2Component} from './components/oauth2/oauth2.component';
+import {VerifyComponent} from './components/verify/verify.component';
 
 
 const routes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: 'boardspace'},
   {path: 'login', component: LoginComponent, canActivate: [LoginGuard]},
   {path: 'oauth2', component: Oauth2Component},
+  {path: 'verify', component: VerifyComponent},
   {path: 'boardspace', component: BoardspaceComponent, canActivate: [AuthGuard]},
   {path: 'b/:id', component: BoardComponent, canActivate: [AuthGuard]}
 ];

@@ -34,6 +34,7 @@ import { ConfirmationDialogComponent } from './components/dialogs/confirmation-d
 import { MultiModeInputComponent } from './components/multi-mode-input/multi-mode-input.component';
 import {CollaboratorService} from './services/collaborator.service';
 import {ResponseService} from './services/response.service';
+import { VerifyComponent } from './components/verify/verify.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import {ResponseService} from './services/response.service';
     Oauth2Component,
     MultiModeInputComponent,
     RowFeedDialogComponent,
-    ConfirmationDialogComponent
+    ConfirmationDialogComponent,
+    VerifyComponent
   ],
   imports: [
     MaterialModule,
